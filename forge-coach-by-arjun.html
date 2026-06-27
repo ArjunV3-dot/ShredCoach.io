@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FORGE — Final Transformation Coach</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@300;400;600;700;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080808;
+  --surface: #101010;
+  --surface2: #161616;
+  --border: #1e1e1e;
+  --accent: #d4a843;
+  --accent2: #c0392b;
+  --green: #3d9e5f;
+  --blue: #4a87c0;
+  --purple: #9b6dbf;
+  --orange: #d4822a;
+  --text: #ede8dc;
+  --muted: #555;
+  --dim: #2a2a2a;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Barlow', sans-serif;
+  font-weight: 300;
+  line-height: 1.65;
+  min-height: 100vh;
+}
+
+/* ─── HEADER ─── */
+header {
+  border-bottom: 1px solid var(--border);
+  padding: 16px 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  background: rgba(8,8,8,0.98);
+  backdrop-filter: blur(12px);
+  z-index: 200;
+}
+
+.logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.75rem;
+  letter-spacing: 8px;
+  color: var(--accent);
+}
+.logo span { color: var(--text); }
+.logo .fin {
+  font-size: 0.7rem;
+  letter-spacing: 3px;
+  color: var(--accent2);
+  vertical-align: super;
+  margin-left: 4px;
+}
+
+.header-stats {
+  display: flex;
+  gap: 24px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 2px;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+.header-stats strong {
+  display: block;
+  font-size: 1rem;
+  color: var(--accent);
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+/* ─── HERO ─── */
+.hero {
+  padding: 48px 36px 32px;
+  max-width: 1340px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 36px;
+  align-items: start;
+  border-bottom: 1px solid var(--border);
+}
+
+.hero-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3.2rem, 5.5vw, 5.8rem);
+  line-height: 0.92;
+  letter-spacing: 3px;
+}
+.hero-title .t2 { color: var(--accent); }
+.hero-title .t3 { color: var(--accent2); font-size: 58%; letter-spacing: 5px; }
+
+.hero-sub {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 14px;
+}
+
+.hero-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.hc {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 16px;
+}
+.hc .hc-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.6rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 5px;
+}
+.hc .hc-val {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.6rem;
+  line-height: 1;
+  letter-spacing: 1px;
+}
+.hc .hc-note { font-size: 0.75rem; color: #666; margin-top: 4px; line-height: 1.3; }
+.hc.red .hc-val { color: var(--accent2); }
+.hc.gold .hc-val { color: var(--accent); }
+.hc.green .hc-val { color: var(--green); }
+
+/* ─── TABS ─── */
+.tab-wrap {
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+  position: sticky;
+  top: 57px;
+  z-index: 100;
+}
+.tabs {
+  display: flex;
+  padding: 0 36px;
+  max-width: 1340px;
+  margin: 0 auto;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.tabs::-webkit-scrollbar { display: none; }
+
+.tab {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.68rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  padding: 13px 20px;
+  cursor: pointer;
+  color: var(--muted);
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  background: none;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+.tab:hover { color: var(--text); }
+.tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+/* ─── CONTENT ─── */
+.content {
+  max-width: 1340px;
+  margin: 0 auto;
+  padding: 36px 36px 80px;
+}
+
+.panel { display: none; }
+.panel.active { display: block; }
+
+/* ─── TYPOGRAPHY ─── */
+.sec-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.62rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 5px;
+}
+.sec-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2rem;
+  letter-spacing: 2px;
+  margin-bottom: 24px;
+  line-height: 1;
+}
+
+/* ─── ALERTS ─── */
+.alert {
+  border: 1px solid;
+  padding: 13px 18px;
+  margin-bottom: 20px;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  display: flex;
+  gap: 12px;
+}
+.alert-icon { flex-shrink: 0; font-size: 1rem; line-height: 1.6; }
+.alert.warn { border-color: var(--orange); background: rgba(212,130,42,0.04); color: #b8802a; }
+.alert.danger { border-color: var(--accent2); background: rgba(192,57,43,0.04); color: #b04535; }
+.alert.info { border-color: var(--blue); background: rgba(74,135,192,0.04); color: #6a9ec0; }
+.alert.success { border-color: var(--green); background: rgba(61,158,95,0.04); color: #4a9060; }
+
+/* ─── VERDICT BOX ─── */
+.vbox {
+  background: var(--surface);
+  border: 1px solid var(--dim);
+  border-top: 3px solid var(--accent);
+  padding: 22px 26px;
+  margin-bottom: 16px;
+}
+.vbox h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.35rem;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+.vbox p { font-size: 0.84rem; color: #999; line-height: 1.7; margin-bottom: 8px; }
+.vbox p:last-child { margin-bottom: 0; }
+.vbox ul { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+.vbox ul li {
+  font-size: 0.82rem; color: #aaa;
+  padding-left: 16px; position: relative; line-height: 1.5;
+}
+.vbox ul li::before { content: '→'; position: absolute; left: 0; color: var(--accent); }
+
+/* ─── WORKOUT DAY CARDS ─── */
+.workout-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 13px;
+  margin-bottom: 28px;
+}
+
+.day-card { background: var(--surface); border: 1px solid var(--border); overflow: hidden; }
+
+.day-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 17px;
+  background: var(--surface2);
+  border-bottom: 1px solid var(--border);
+}
+.day-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.9rem;
+  color: var(--accent);
+  line-height: 1;
+  min-width: 30px;
+}
+.day-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.day-focus { font-size: 0.7rem; color: var(--muted); letter-spacing: 1px; }
+.day-tag {
+  margin-left: auto;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.55rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border: 1px solid;
+  flex-shrink: 0;
+}
+.day-tag.str { color: var(--orange); border-color: var(--orange); }
+.day-tag.hyp { color: var(--blue); border-color: var(--blue); }
+.day-tag.det { color: var(--purple); border-color: var(--purple); }
+.day-tag.rst { color: var(--muted); border-color: var(--dim); }
+
+/* ─── EXERCISE SECTION HEADER ─── */
+.ex-section {
+  padding: 6px 17px;
+  background: #0c0c0c;
+  border-bottom: 1px solid var(--border);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.58rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ─── EXERCISE LIST ─── */
+.ex-list { padding: 0 17px; list-style: none; }
+.ex-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 8px 0;
+  border-bottom: 1px solid #141414;
+  font-size: 0.81rem;
+  color: #bbb;
+}
+.ex-list li:last-child { border-bottom: none; }
+.ex-left { flex: 1; }
+.ex-name { color: var(--text); display: block; }
+.ex-why { font-size: 0.68rem; color: var(--muted); display: block; margin-top: 1px; line-height: 1.3; }
+.ex-sets {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.78rem;
+  color: var(--accent);
+  letter-spacing: 1px;
+  white-space: nowrap;
+  margin-left: 10px;
+  padding-top: 2px;
+  flex-shrink: 0;
+}
+.badge {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.5rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  border: 1px solid;
+  margin-left: 5px;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+.badge.new { color: var(--green); border-color: var(--green); }
+.badge.tgt { color: var(--purple); border-color: var(--purple); }
+.badge.key { color: var(--accent); border-color: var(--accent); }
+
+.cardio-row {
+  border-top: 1px solid var(--border);
+  padding: 9px 17px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.76rem;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.cardio-row.on { color: var(--green); background: #0a0f0a; }
+.cardio-row.off { color: var(--muted); background: #0a0a0a; }
+
+/* ─── MUSCLE GROUP DETAIL CARDS ─── */
+.muscle-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 13px;
+  margin-bottom: 26px;
+}
+.mcard {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--purple);
+  padding: 18px;
+}
+.mcard .mc-group {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.6rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--purple);
+  margin-bottom: 4px;
+}
+.mcard .mc-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.3rem;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+  line-height: 1;
+}
+.mcard ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.mcard ul li {
+  font-size: 0.79rem;
+  color: #999;
+  padding-left: 13px;
+  position: relative;
+  line-height: 1.4;
+}
+.mcard ul li::before { content: '→'; position: absolute; left: 0; color: var(--purple); font-size: 0.68rem; }
+.mcard ul li strong { color: var(--text); }
+
+/* ─── CARDIO SCIENCE ─── */
+.sci-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 13px;
+  margin-bottom: 24px;
+}
+.sci-card { background: var(--surface); border: 1px solid var(--border); padding: 18px; text-align: center; }
+.sci-card .snum { font-family: 'Bebas Neue', sans-serif; font-size: 2.4rem; color: var(--accent); line-height: 1; }
+.sci-card .slabel { font-family: 'Barlow Condensed', sans-serif; font-size: 0.62rem; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-top: 3px; }
+.sci-card .snote { font-size: 0.77rem; color: #666; margin-top: 7px; line-height: 1.4; }
+
+/* ─── DIET ─── */
+.macro-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 13px;
+  margin-bottom: 26px;
+}
+.mac-card { background: var(--surface); border: 1px solid var(--border); padding: 18px; text-align: center; }
+.mac-card .mnum { font-family: 'Bebas Neue', sans-serif; font-size: 2.3rem; color: var(--accent); line-height: 1; }
+.mac-card .mlabel { font-family: 'Barlow Condensed', sans-serif; font-size: 0.6rem; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-top: 3px; }
+.mac-card .msub { font-size: 0.72rem; color: #555; margin-top: 5px; }
+
+.meal-stack { display: flex; flex-direction: column; gap: 9px; margin-bottom: 28px; }
+.meal {
+  display: grid;
+  grid-template-columns: 105px 1fr 105px;
+  gap: 16px;
+  align-items: center;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 14px 20px;
+}
+.meal-time { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; color: var(--accent); letter-spacing: 1px; }
+.meal-time small { display: block; font-family: 'Barlow Condensed', sans-serif; font-size: 0.6rem; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-top: 1px; }
+.meal-title { font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 700; letter-spacing: 1px; margin-bottom: 2px; }
+.meal-items { font-size: 0.78rem; color: #888; line-height: 1.5; }
+.meal-kcal { text-align: right; }
+.meal-kcal .knum { font-family: 'Bebas Neue', sans-serif; font-size: 1.25rem; color: var(--text); letter-spacing: 1px; display: block; }
+.meal-kcal .kmacros { font-family: 'Barlow Condensed', sans-serif; font-size: 0.68rem; color: var(--muted); letter-spacing: 1px; }
+
+/* ─── SUPPLEMENTS ─── */
+.supp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 11px; }
+.supp-card { background: var(--surface); border: 1px solid var(--border); padding: 15px; }
+.supp-name { font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 700; letter-spacing: 1px; margin-bottom: 4px; }
+.supp-dose { font-family: 'Bebas Neue', sans-serif; font-size: 1.15rem; color: var(--accent); letter-spacing: 1px; }
+.supp-when { font-size: 0.72rem; color: var(--muted); margin-top: 3px; line-height: 1.4; }
+
+/* ─── ROADMAP ─── */
+.timeline { display: flex; flex-direction: column; gap: 0; margin-bottom: 26px; border: 1px solid var(--border); }
+.tl-item {
+  display: grid;
+  grid-template-columns: 140px 1fr 110px;
+  gap: 20px;
+  align-items: center;
+  padding: 16px 22px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  transition: background 0.2s;
+}
+.tl-item:last-child { border-bottom: none; }
+.tl-item:hover { background: var(--surface2); }
+.tl-month { font-family: 'Bebas Neue', sans-serif; font-size: 1.05rem; color: var(--accent); letter-spacing: 1px; }
+.tl-month small { display: block; font-family: 'Barlow Condensed', sans-serif; font-size: 0.6rem; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+.tl-desc { font-size: 0.81rem; color: #999; line-height: 1.55; }
+.tl-weight { text-align: right; font-family: 'Bebas Neue', sans-serif; font-size: 1.35rem; color: var(--text); letter-spacing: 1px; }
+.tl-weight small { display: block; font-family: 'Barlow Condensed', sans-serif; font-size: 0.58rem; color: var(--muted); letter-spacing: 2px; }
+
+.phase-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 13px;
+  margin-bottom: 22px;
+}
+.phase-card { background: var(--surface); border: 1px solid var(--border); padding: 18px; position: relative; overflow: hidden; }
+.phase-bg { font-family: 'Bebas Neue', sans-serif; font-size: 5rem; color: var(--dim); position: absolute; top: 4px; right: 12px; line-height: 1; pointer-events: none; }
+.ph-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.6rem; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
+.ph-title { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: 1px; margin-bottom: 8px; }
+.ph-desc { font-size: 0.79rem; color: #888; line-height: 1.55; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 960px) {
+  header { padding: 13px 18px; }
+  .header-stats { gap: 14px; font-size: 0.65rem; }
+  .hero { grid-template-columns: 1fr; padding: 28px 18px 24px; }
+  .hero-cards { grid-template-columns: repeat(3, 1fr); }
+  .tabs { padding: 0 18px; }
+  .content { padding: 26px 18px 60px; }
+  .workout-grid { grid-template-columns: 1fr; }
+  .muscle-grid { grid-template-columns: 1fr; }
+  .sci-grid { grid-template-columns: 1fr; }
+  .macro-row { grid-template-columns: repeat(2, 1fr); }
+  .meal { grid-template-columns: 90px 1fr; }
+  .meal-kcal { display: none; }
+  .supp-grid { grid-template-columns: repeat(2, 1fr); }
+  .phase-row { grid-template-columns: 1fr; }
+  .tl-item { grid-template-columns: 110px 1fr; }
+  .tl-weight { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">FORGE <span>COACH</span><span class="fin">FINAL</span></div>
+  <div class="header-stats">
+    <div><strong>96 kg</strong>Current</div>
+    <div><strong>5'11"</strong>Height</div>
+    <div><strong>~23%</strong>Est. BF</div>
+    <div><strong>ADV</strong>Level</div>
+    <div><strong>83–85 kg</strong>Target</div>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div>
+    <div class="hero-title">
+      <div>BUILD THE</div>
+      <div class="t2">WARRIOR</div>
+      <div class="t3">PHYSIQUE — FINAL PLAN</div>
+    </div>
+    <div class="hero-sub">Advanced Cut Protocol · 6-Day Split · ~7 Month Timeline</div>
+  </div>
+  <div class="hero-cards">
+    <div class="hc red">
+      <div class="hc-label">Fat to Lose</div>
+      <div class="hc-val">12–14 kg</div>
+      <div class="hc-note">From ~23% down to sub-10% BF</div>
+    </div>
+    <div class="hc gold">
+      <div class="hc-label">Target Weight</div>
+      <div class="hc-val">83–85 kg</div>
+      <div class="hc-note">At 5'11" with your muscle base</div>
+    </div>
+    <div class="hc green">
+      <div class="hc-label">Muscle Base</div>
+      <div class="hc-val">STRONG</div>
+      <div class="hc-note">Already built. Just need to reveal it.</div>
+    </div>
+    <div class="hc gold">
+      <div class="hc-label">Daily Calories</div>
+      <div class="hc-val">2,350</div>
+      <div class="hc-note">~500 kcal deficit from maintenance</div>
+    </div>
+    <div class="hc green">
+      <div class="hc-label">Daily Protein</div>
+      <div class="hc-val">210g</div>
+      <div class="hc-note">2.2g / kg — muscle retention</div>
+    </div>
+    <div class="hc red">
+      <div class="hc-label">Timeline</div>
+      <div class="hc-val">~7 Mo</div>
+      <div class="hc-note">Full shred by Feb–Mar 2027</div>
+    </div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tab-wrap">
+  <div class="tabs">
+    <button class="tab active" onclick="show('workout',this)">Workout Split</button>
+    <button class="tab" onclick="show('separation',this)">Separation & Detail</button>
+    <button class="tab" onclick="show('cardio',this)">Cardio Science</button>
+    <button class="tab" onclick="show('diet',this)">Diet Plan</button>
+    <button class="tab" onclick="show('roadmap',this)">Roadmap</button>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- ═══════════════════════════════════════════════
+     WORKOUT SPLIT
+════════════════════════════════════════════════ -->
+<div class="panel active" id="workout">
+  <div class="sec-label">Final Program — All Fixes Applied</div>
+  <div class="sec-title">6-Day Training Split</div>
+
+  <div class="alert success">
+    <div class="alert-icon">✓</div>
+    <div><strong>v3 Final fixes:</strong> Bicep volume increased to 5 sets per arm day + short head work added (Preacher Curl, Barbell Curl). Trap work added (Shrugs, Farmer's Carry). Both lat pulldown variations restored. Arnold Press, Front Raise, Spider Curl, DB Pullover all present. Full serratus + separation protocol integrated.</div>
+  </div>
+
+  <div class="workout-grid">
+
+    <!-- DAY 1 -->
+    <div class="day-card">
+      <div class="day-header">
+        <div class="day-num">1</div>
+        <div>
+          <div class="day-name">Push — Strength</div>
+          <div class="day-focus">Chest · Front Delt · Serratus · Tris</div>
+        </div>
+        <div class="day-tag str">Strength</div>
+      </div>
+      <div class="ex-section">Chest</div>
+      <ul class="ex-list">
+        <li><div class="ex-left"><span class="ex-name">Incline Barbell Press <span class="badge key">primary</span></span><span class="ex-why">Max weight — upper chest thickness and strength base</span></div><span class="ex-sets">4 × 4–6</span></li>
+        <li><div class="ex-left"><span class="ex-name">Flat DB Press</span><span class="ex-why">Full ROM, 3s eccentric, deep stretch at bottom</span></div><span class="ex-sets">3 × 8–10</span></li>
+        <li><div class="ex-left"><span class="ex-name">Cable Fly — Low to High <span class="badge tgt">side chest</span></span><span class="ex-why">Upper-outer pec sweep + serratus activation at peak</span></div><span class="ex-sets">3 × 12–15</span></li>
+      </ul>
+      <div class="ex-section">Shoulders — Front Delt Separation</div>
+      <ul class="ex-list">
+        <li><div class="ex-left"><span class="ex-name">Arnold Press <span class="badge new">new</span></span><span class="ex-why">Rotation hits all 3 delt heads — best front/side sep builder</span></div><span class="ex-sets">4 × 8–10</span></li>
+        <li><div class="ex-left"><span class="ex-name">DB Front Raise <span class="badge new">new</span> <span class="badge tgt">front/bi sep</span></span><span class="ex-why">Isolates anterior delt — creates the groove between delt and bicep</span></div><span class="ex-sets">3 × 12–15</span></li>
+        <li><div class="ex-left"><span class="ex-name">Cable Lateral Raise</span><span class="ex-why">Constant tension side delt — shoulder width</span></div><span class="ex-sets">4 × 15–20</span></li>
+      </ul>
+      <div class="ex-section">Triceps</div>
+      <ul class="ex-list">
+        <li><div class="ex-left"><span class="ex-name">Weighted Dips</span><span class="ex-why">Forward lean for lower pec + tri compound</span></div><span class="ex-sets">3 × 8–10</span></li>
+        <li><div class="ex-left"><span class="ex-name">Overhead Tricep Extension</span><span class="ex-why">Long head stretch — biggest tri head for upper arm mass</span></div><span class="ex-sets">3 × 12–15</span></li>
+      </ul>
+      <div class="cardio-row on">🏃 Incline Walk — 25 min post-workout</div>
+    </div>
+
+    <!-- DAY 2 -->
+    <div class="day-card">
+      <div class="day-header">
+        <div class="day-num">2</div>
+        <div>
+          <div class="day-name">Pull — Strength</div>
+          <div class="day-focus">Back Width · Thickness · Traps · Bis</div>
+        </div>
+        <div class="day-tag str">Strength</div>
+      </div>
+      <div class="ex-section">Back — Thickness & Width</div>
+      <ul class="ex-list">
+        <li><div class="ex-left"><span class="ex-name">Deadlift / Rack Pull <span class="badge key">primary</span></span><span class="ex-why">Back thickness, trap-to-erector tie-in — non-negotiable</span></div><span class="ex-sets">4 × 4–5</span></li>
+        <li><div class="ex-left"><span class="ex-name">Weighted Pull-Ups</span><span class="ex-why">Add belt weight — lat width and functional strength</span></div><span class="ex-sets">4 × 5–8</span></li>
+        <li><div class="ex-left"><span class="ex-name">Wide-Grip Lat Pulldown <span class="badge key">restored</span></span><span class="ex-why">Upper lat width — the V-taper builder from front view</span></div><span class="ex-sets">3 × 10–12</span></li>
+        <li><div class="ex-left"><span class="ex-name">Chest-Supported DB Row</span><span class="ex-why">Mid-back thickness, no momentum</span></div><span class="ex-sets">3 × 8–10</span></li>
+        <li><div class="ex-left"><span class="ex-name">Straight-Arm Pulldown <span class="badge tgt">serratus</span></span><span class="ex-why">Lower lat + serratus tie-in — side chest detail</span></div><span class="ex-sets">3 × 12–15</span></li>
+      </ul>
+      <div class="ex-section">Traps <span class="badge new" style="margin-left:6px">new</span></div>
+      <ul class="ex-list">
+        <li><div class="ex-left"><span class="ex-name">Barbell Shrug <span class="badge new">new</span></span><span class="ex-why">Upper trap mass — the neck-to-shoulder sweep in that physique</span></div><span class="ex-sets">4 × 12–15</span></li>
+      </ul>
+      <div class="ex-section">Rear Delt + Biceps</div>
+      <ul class="ex-list">
+        <li><div class="ex-left"><span class="ex-name">Face Pull — Rope</span><span class="ex-why">Rear delt + lower trap + external rotation</span></div><span class="ex-sets">3 × 15–20</span></li>
+        <li><div class="ex-left"><span class="ex-name">Incline DB Curl <span class="badge tgt">long head</span></span><span class="ex-why">Long head stretch — builds peak that separates from delt</span></div><span class="ex-sets">3 × 10–12</span></li>
+        <li><div class="ex-left"><span class="ex-name">Hanging Leg Raise</span><span class="ex-why">Core — slow controlled reps</span></div><span class="ex-sets">3 × 12–15</span></li>
+      </ul>
+      <div class="cardio-row off">🚶 No cardio — heavy CNS day, prioritize recovery</div>
+    </div>
+
+    <!-- DAY 3 -->
+    <div class="day-card">
+      <div class="day-header">
+        <div class="day-num">3</div>
+        <div>
+          <div class="day-name">Legs — Quad Dominant</div>
+          <div class="day-focus">Quads · Hams · Calves · Core</div>
+        </div>
+        <div class="day-tag str">Strength</div>
+      </div>
+      <div class="ex-section">Primary Compound</div>
+      <ul class="ex-list">
+        <li><div class="ex-left"><span class="ex-name">Back Squat <span class="badge key">primary</span></span><span class="ex-why">Heaviest movement — 5 sets, full depth, max weight</span></div><span class="ex-sets">5 × 4–6</span></li>
+      </ul>
+      <div class="ex-section">Volume</div>
+      <ul class="ex-list">
+        <li><div class="ex-left"><span class="ex-name">Leg Press</span><span class="ex-why">High foot placement — quad + glute activation</span></div><span class="ex-sets">3 × 10–12</span></li>
+        <li><div class="ex-left"><span class="ex-name">Walking Lunges</span><span class="ex-why">Unilateral — better functional carryover than extensions</span></div><span class="ex-sets">3 × 10/leg</span></li>
+        <li><div class="ex-left"><span class="ex-name">Seated Leg Curl</span><span class="ex-why">Full ROM, 2s eccentric</span></div><span class="ex-sets">3 × 12–15</span></li>
+      </ul>
+      <div class="ex-section">Calves + Core</div>
+      <ul class="ex-list">
+        <li><div class="ex-left"><span class="ex-name">Standing Calf Raise</span><span class="ex-why">Slow negative, full dorsiflexion</span></div><span class="ex-sets">5 × 15–20</span></li>
+        <li><div class="ex-left"><span class="ex-name">Ab Wheel + Cable Crunch Superset</span><span class="ex-why">Core finisher — 2 rounds each</span></div><span class="ex-sets">2 × 10 / 15</span></li>
+      </ul>
+      <div class="cardio-row on">🏃 Stairmaster — 20 min post-workout</div>
+    </div>
+
+    <!-- DAY 4 -->
+    <div class="day-card">
+      <div class="day-header">
+        <div class="day-num">4</div>
+        <div>
+          <div class="day-name">Rest / Active Recovery</div>
+          <div class="day-focus">Mobility · Decompression · No lifting</div>
+        </div>
+        <div class="day-tag rst">Rest</div>
+      </div>
+      <div class="ex-section">Recovery Protocol</div>
+      <ul class="ex-list">
+        <li><div class="ex-left"><span class="ex-name">Hip Flexor + Hamstring Stretch</span><span class="ex-why">10 min flow — post quad-dominant day recovery</span></div><span class="ex-sets">10 min</span></li>
+        <li><div class="ex-left"><span class="ex-name">Thoracic Spine Foam Roll</span><span class="ex-why">Deadlift thoracic decompression</span></div><span class="ex-sets">5 min</span></li>
+        <li><div class="ex-left"><span class="ex-name">Dead Hangs</span><span class="ex-why">Spinal decompression + passive grip work</span></div><span class="ex-sets">3 × 45s</span></li>
+        <li><div class="ex-left"><span class="ex-name">Shoulder Capsule Stretch</span><span class="ex-why">Posterior capsule — prevents impingement on pressing days</span></div><span class="ex-sets">3 × 30s/side</span></li>
+      </ul>
+      <div class="cardio-row off">🚶 Optional flat walk 20–30 min — easy pace only</div>
+    </div>
+
+    <!-- DAY 5 -->
+    <div class="day-card">
+      <div class="day-header">
+        <div class="day-num">5</div>
+        <div>
+          <div class="day-name">Shoulders + Arms — Detail</div>
+          <div class="day-focus">3D Shoulder · Bicep Peak + Short Head · Traps · Tris</div>
+        </div>
+        <div class="day-tag det">Detail</div>
+      </div>
+      <div class="ex-section">Shoulders — All 3 Heads</div>
+      <ul class="ex-list">
+        <li><div class="ex-left"><span class="ex-name">Machine Shoulder Press</span><span class="ex-why">Overall shoulder mass — heavy and controlled</span></div><span class="ex-sets">4 × 8–10</span></li>
+        <li><div class="ex-left"><span class="ex-name">Cable Lateral Raise <span class="badge tgt">side delt</span></span><span class="ex-why">Constant tension — medial head width</span></div><span class="ex-sets">4 × 15–20</span></li>
+        <li><div class="ex-left"><span class="ex-name">Rear Delt Machine Fly <span class="badge tgt">rear delt</span></span><span class="ex-why">3D roundness — the cannonball look from side</span></div><span class="ex-sets">4 × 15–20</span></li>
+        <li><div class="ex-left"><span class="ex-name">Cable Front Raise <span class="badge tgt">front/bi sep</span></span><span class="ex-why">Front delt–bicep groove — visible at sub-12% BF</span></div><span class="ex-sets">3 × 12–15</span></li>
+      </ul>
+      <div class="ex-section">Traps <span class="badge new" style="margin-left:6px">new</span></div>
+      <ul class="ex-list">
+        <li><div class="ex-left"><span class="ex-name">DB Shrug <span class="badge new">new</span></span><span class="ex-why">Upper trap detail — squeeze and hold 1s at top</span></div><span class="ex-sets">4 × 12–15</span></li>
+        <li><div class="ex-left"><span class="ex-name">Farmer's Carry <span class="badge new">new</span></span><span class="ex-why">Trap activation + grip + upper back density — loaded walk 20–30m</span></div><span class="ex-sets">4 × 25m</span></li>
+      </ul>
+      <div class="ex-section">Biceps — Long Head + Short Head + Peak</div>
+      <ul class="ex-list">
+        <li><div class="ex-left"><span class="ex-name">EZ Bar Preacher Curl <span class="badge new">new</span> <span class="badge tgt">short head</span></span><span class="ex-why">#1 short head isolator — bicep width and inner fullness</span></div><span class="ex-sets">4 × 10–12</span></li>
+        <li><div class="ex-left"><span class="ex-name">Standing Barbell Curl <span class="badge new">new</span> <span class="badge tgt">short head</span></span><span class="ex-why">Both heads, short head dominant — mass builder</span></div><span class="ex-sets">3 × 8–10</span></li>
+        <li><div class="ex-left"><span class="ex-name">Spider Curl / Concentration Curl <span class="badge tgt">peak</span></span><span class="ex-why">Peak contraction — forces full bicep squeeze at top</span></div><span class="ex-sets">3 × 10–12</span></li>
+        <li><div class="ex-left"><span class="ex-name">Hammer Curl</span><span class="ex-why">Brachialis — thickness between bicep and elbow</span></div><span class="ex-sets">3 × 12</span></li>
+      </ul>
+      <div class="ex-section">Triceps</div>
+      <ul class="ex-list">
+        <li><div class="ex-left"><span class="ex-name">Skullcrusher + Rope Pushdown Superset</span><span class="ex-why">Long head + lateral head — tri finisher</span></div><span class="ex-sets">3 × 10 / 15</span></li>
+      </ul>
+      <div class="cardio-row off">🚶 No cardio — arms and shoulders need full blood focus</div>
+    </div>
+
+    <!-- DAY 6 -->
+    <div class="day-card">
+      <div class="day-header">
+        <div class="day-num">6</div>
+        <div>
+          <div class="day-name">Pull + Posterior Chain</div>
+          <div class="day-focus">Hams · Glutes · Lower Lats · Serratus · Side Chest</div>
+        </div>
+        <div class="day-tag hyp">Hypertrophy</div>
+      </div>
+      <div class="ex-section">Posterior Chain</div>
+      <ul class="ex-list">
+        <li><div class="ex-left"><span class="ex-name">Romanian Deadlift</span><span class="ex-why">Hip hinge — hamstring + glute tie-in detail</span></div><span class="ex-sets">4 × 8–10</span></li>
+        <li><div class="ex-left"><span class="ex-name">Barbell Hip Thrust</span><span class="ex-why">Heavy — full glute squeeze and hold at top</span></div><span class="ex-sets">3 × 10–12</span></li>
+        <li><div class="ex-left"><span class="ex-name">Lying Leg Curl</span><span class="ex-why">Full ROM, 2s eccentric — hamstring detail</span></div><span class="ex-sets">4 × 12–15</span></li>
+      </ul>
+      <div class="ex-section">Back — Lower Lat & V-Taper</div>
+      <ul class="ex-list">
+        <li><div class="ex-left"><span class="ex-name">Neutral-Grip Lat Pulldown <span class="badge key">restored</span></span><span class="ex-why">Lower lat insertion — creates the lat sweep visible from front</span></div><span class="ex-sets">3 × 12</span></li>
+        <li><div class="ex-left"><span class="ex-name">Seated Cable Row — Wide Grip</span><span class="ex-why">Mid-back detail and thickness</span></div><span class="ex-sets">3 × 10–12</span></li>
+        <li><div class="ex-left"><span class="ex-name">DB Pullover <span class="badge new">new</span> <span class="badge tgt">serratus/side chest</span></span><span class="ex-why">Best serratus builder — the ribcage muscle strips in that physique</span></div><span class="ex-sets">3 × 12–15</span></li>
+      </ul>
+      <div class="ex-section">Calves</div>
+      <ul class="ex-list">
+        <li><div class="ex-left"><span class="ex-name">Seated Calf Raise</span><span class="ex-why">Soleus — lower leg fullness and detail</span></div><span class="ex-sets">4 × 15–20</span></li>
+      </ul>
+      <div class="cardio-row on">🏃 Incline Walk — 25 min post-workout</div>
+    </div>
+
+  </div>
+
+  <div class="alert info">
+    <div class="alert-icon">📊</div>
+    <div><strong>Weekly volume summary:</strong> Biceps = 13 sets (long head + short head + peak) across 2 days. Traps = 8 sets across 2 days (shrugs, farmer's carry, deadlift, face pull). Lats = wide-grip + neutral-grip pulldown + pull-ups + 2 rows = full lat coverage. Cardio = 3 sessions × ~22 min = 70 min total.</div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════
+     SEPARATION & DETAIL
+════════════════════════════════════════════════ -->
+<div class="panel" id="separation">
+  <div class="sec-label">Aesthetic Detail Protocol</div>
+  <div class="sec-title">Achieving Muscle Separation</div>
+
+  <div class="alert info">
+    <div class="alert-icon">💡</div>
+    <div>Separation is <strong>70% body fat percentage, 30% muscle development.</strong> You cannot see separation at 23% BF no matter how many isolation exercises you do. These targeted movements ensure the muscles are developed enough that when the fat clears — the grooves, striations and tie-ins are there to show.</div>
+  </div>
+
+  <div class="muscle-grid">
+    <div class="mcard">
+      <div class="mc-group">Front Delt / Bicep</div>
+      <div class="mc-title">Anterior Separation</div>
+      <ul>
+        <li><strong>Arnold Press</strong> — rotation engages front delt through full arc, creates distinct anterior delt head that separates visibly from the lateral head</li>
+        <li><strong>DB / Cable Front Raise</strong> — isolates anterior deltoid, builds the groove between front delt and bicep long head that becomes visible at sub-13% BF</li>
+        <li><strong>Incline DB Curl</strong> — long head stretch under load, builds the bicep peak that rises away from the delt when the arm is raised</li>
+        <li><strong>Spider / Concentration Curl</strong> — peak contraction isolation, forces the full bicep head to contract and "pop" at the top of the movement</li>
+      </ul>
+    </div>
+    <div class="mcard">
+      <div class="mc-group">Bicep — Short Head</div>
+      <div class="mc-title">Width & Inner Fullness</div>
+      <ul>
+        <li><strong>EZ Bar Preacher Curl</strong> — the #1 short head exercise. Arm positioned forward restricts long head, forces short head to do all the work. Builds the inner bicep width visible from the front.</li>
+        <li><strong>Standing Barbell Curl</strong> — shoulder-width grip, both heads but short head dominant at the top portion of the movement. Classic mass builder.</li>
+        <li><strong>Cable Curl (elbows forward)</strong> — if available, high elbow position shifts tension heavily to short head. Add as optional finisher.</li>
+        <li>Short head = bicep width when viewed from front. Long head = peak when viewed from side. You need both.</li>
+      </ul>
+    </div>
+    <div class="mcard">
+      <div class="mc-group">Side Chest / Serratus</div>
+      <div class="mc-title">Lateral Chest Detail</div>
+      <ul>
+        <li><strong>DB Pullover</strong> — the single best serratus anterior exercise. Creates the finger-like muscle strips along the ribcage visible in that reference physique</li>
+        <li><strong>Straight-Arm Pulldown</strong> — lower lat and serratus tie-in simultaneously activated</li>
+        <li><strong>Cable Fly Low-to-High</strong> — upper-outer pec sweep, creates the visible chest shelf when lean</li>
+        <li>Serratus only becomes visible below ~11–12% BF — long-term goal. Build it now, reveal it later.</li>
+      </ul>
+    </div>
+    <div class="mcard">
+      <div class="mc-group">Traps</div>
+      <div class="mc-title">Neck-to-Shoulder Mass</div>
+      <ul>
+        <li><strong>Barbell / DB Shrug</strong> — upper trap mass. Squeeze and hold 1s at top. The trap-to-neck tie-in is one of the most dominant features of that reference physique</li>
+        <li><strong>Farmer's Carry</strong> — isometric trap activation under a loaded walk. Also builds grip, upper back density, and core stability simultaneously</li>
+        <li><strong>Deadlift / Rack Pull</strong> — mid and lower trap thickness. Already in your plan — this is why deadlifts are non-negotiable</li>
+        <li><strong>Face Pull</strong> — lower trap + rear delt. Already in plan. Prevents the forward shoulder posture that kills trap visibility</li>
+      </ul>
+    </div>
+    <div class="mcard">
+      <div class="mc-group">Side / Rear Delt</div>
+      <div class="mc-title">3D Shoulder Roundness</div>
+      <ul>
+        <li><strong>Cable Lateral Raise</strong> — constant tension through full ROM, builds medial head width visible from the front</li>
+        <li><strong>Rear Delt Machine Fly</strong> — posterior head creates the "cannonball" round look from side view</li>
+        <li><strong>Face Pull</strong> — external rotation + rear delt, prevents flat shoulder appearance</li>
+        <li><strong>Arnold Press rotation</strong> — the only press that hits all 3 heads through the movement arc</li>
+      </ul>
+    </div>
+    <div class="mcard">
+      <div class="mc-group">Lats — Width & Sweep</div>
+      <div class="mc-title">V-Taper Architecture</div>
+      <ul>
+        <li><strong>Wide-Grip Lat Pulldown</strong> — upper lat width from behind. This is the V-taper builder seen from back</li>
+        <li><strong>Neutral-Grip Lat Pulldown</strong> — lower lat insertion and teres major. Creates the lat sweep and "wings" visible from front with arms down</li>
+        <li><strong>Weighted Pull-Ups</strong> — functional strength + full lat engagement through the longest possible ROM</li>
+        <li>All three together = complete lat coverage from every insertion point. Never just one pulldown variation.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="vbox">
+    <h3>Bicep Volume — Why It Now Works</h3>
+    <ul>
+      <li><strong>Day 2 (Pull):</strong> Incline DB Curl 3×10–12 — long head, bicep-delt separation focus</li>
+      <li><strong>Day 5 (Arms):</strong> EZ Bar Preacher 4×10–12 + Barbell Curl 3×8–10 + Spider Curl 3×10–12 + Hammer Curl 3×12 = 13 sets total bicep work across the week</li>
+      <li>Long head covered: Incline curl, spider curl, hammer curl</li>
+      <li>Short head covered: Preacher curl, barbell curl — both now present</li>
+      <li>Peak contraction: Concentration/spider curl — full squeeze at top</li>
+      <li>13 total sets per week is optimal for an advanced lifter in a cut — enough stimulus, not so much it creates excessive soreness that interferes with recovery</li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════
+     CARDIO SCIENCE
+════════════════════════════════════════════════ -->
+<div class="panel" id="cardio">
+  <div class="sec-label">The Real Mechanism</div>
+  <div class="sec-title">Why Less Cardio = Smarter Fat Loss</div>
+
+  <div class="sci-grid">
+    <div class="sci-card">
+      <div class="snum">240</div>
+      <div class="slabel">Min Cardio / Week (Before)</div>
+      <div class="snote">6 sessions × 40 min stacked on 6 lifting days. Sounds like more fat loss — but at significant muscle cost.</div>
+    </div>
+    <div class="sci-card">
+      <div class="snum">70</div>
+      <div class="slabel">Min Cardio / Week (Now)</div>
+      <div class="snote">3 sessions × ~22 min. Low-intensity, strategic placement post-workout only.</div>
+    </div>
+    <div class="sci-card">
+      <div class="snum">~500</div>
+      <div class="slabel">Daily Kcal Deficit (Diet)</div>
+      <div class="snote">This is the actual engine of fat loss. Cardio is a multiplier, not the driver.</div>
+    </div>
+  </div>
+
+  <div class="vbox">
+    <h3>Why 6 × 40-Min Was Hurting You</h3>
+    <ul>
+      <li><strong>Cortisol double-spike:</strong> Heavy lifting already spikes cortisol. Adding 40 min cardio immediately after = second cortisol spike. In a caloric deficit, chronically elevated cortisol breaks down muscle tissue for fuel — the exact opposite of what you want.</li>
+      <li><strong>Recovery debt:</strong> 6 lifting days + 240 min cardio = zero recovery window. Tendons, CNS, and muscles never fully repair. Strength drops, lifts stagnate, injury risk climbs.</li>
+      <li><strong>Adaptive thermogenesis:</strong> Your body adapts to excessive cardio by reducing NEAT (non-exercise activity — fidgeting, walking, daily movement). You subconsciously move less throughout the day to compensate. Net calorie burn is far less than expected.</li>
+      <li><strong>MPS inhibition:</strong> Long cardio sessions (40+ min) post-lifting significantly blunts Muscle Protein Synthesis — the signal that tells your body to maintain muscle. On a cut, keeping MPS signal strong is critical.</li>
+      <li><strong>Interference effect:</strong> High cardio volume with resistance training in the same session consistently shows reduced hypertrophy and strength adaptations in advanced lifters vs training + minimal cardio.</li>
+    </ul>
+  </div>
+
+  <div class="vbox">
+    <h3>Why 3 × 22 Min Works Better</h3>
+    <ul>
+      <li><strong>Diet does the heavy lifting:</strong> 500 kcal/day food deficit = 3,500 kcal/week = ~0.5 kg fat/week. This happens regardless of cardio. Cardio is additive, not the foundation.</li>
+      <li><strong>Short sessions preserve MPS:</strong> 22 min low-intensity incline walk = minimal cortisol, minimal MPS interference. You burn 200–250 kcal without the catabolic cost of long sessions.</li>
+      <li><strong>Recovery maintained:</strong> With only 3 cardio sessions, CNS and muscles actually recover between sessions. You can lift heavier — and heavy lifting during a cut is what retains muscle mass.</li>
+      <li><strong>NEAT stays elevated:</strong> When you're not destroying yourself with cardio, your body doesn't compensate by reducing daily movement. Real-world calorie burn stays higher all day, every day.</li>
+      <li><strong>Sustainable for 7 months:</strong> 70 min/week is something you can maintain without burning out. 240 min/week always leads to a crash and abandonment.</li>
+    </ul>
+  </div>
+
+  <div class="alert success">
+    <div class="alert-icon">🔑</div>
+    <div><strong>The winning formula:</strong> 500 kcal food deficit + 3 × 22 min low-intensity cardio + maximum-weight lifting preserved = 0.6–0.8 kg fat/week while retaining near-100% of your muscle mass. This beats your previous setup on every metric.</div>
+  </div>
+
+  <div class="vbox">
+    <h3>When to Adjust Cardio</h3>
+    <ul>
+      <li>If weight stalls 2+ consecutive weeks AND diet is verified accurate → add a 4th session (22 min)</li>
+      <li>Final 8 weeks at sub-13% BF → can bump to 4–5 sessions of 20 min to break through the last stubborn fat</li>
+      <li>Never exceed 30 min per session during the main cut — duration is the problem, not frequency</li>
+      <li>If energy crashes or strength drops 10%+ on main lifts → reduce cardio before reducing food. Always.</li>
+      <li>Morning fasted cardio (optional): If you want to add a session without interfering with lifting, a 20 min walk before breakfast on a rest day is low-risk</li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════
+     DIET
+════════════════════════════════════════════════ -->
+<div class="panel" id="diet">
+  <div class="sec-label">Precision Nutrition Protocol</div>
+  <div class="sec-title">Optimized Cut Diet</div>
+
+  <div class="alert danger">
+    <div class="alert-icon">🔥</div>
+    <div><strong>Root cause of the 13 kg regain:</strong> Butter cooking (15–20g per scramble = 100–150 kcal), untracked oat portions (likely 80–100g dry = 360 kcal vs needed 50g = 180 kcal), and total intake probably 300–500 kcal over cut target daily. Small fixes = massive compounding difference over 7 months.</div>
+  </div>
+
+  <div class="macro-row">
+    <div class="mac-card">
+      <div class="mnum">2,350</div>
+      <div class="mlabel">Daily Calories</div>
+      <div class="msub">~500 kcal deficit from maintenance</div>
+    </div>
+    <div class="mac-card">
+      <div class="mnum">210g</div>
+      <div class="mlabel">Protein</div>
+      <div class="msub">2.2g / kg — muscle retention priority</div>
+    </div>
+    <div class="mac-card">
+      <div class="mnum">230g</div>
+      <div class="mlabel">Carbs</div>
+      <div class="msub">Concentrated pre and post-workout</div>
+    </div>
+    <div class="mac-card">
+      <div class="mnum">65g</div>
+      <div class="mlabel">Fats</div>
+      <div class="msub">From eggs + olive oil only</div>
+    </div>
+  </div>
+
+  <div class="meal-stack">
+    <div class="meal">
+      <div class="meal-time">7:00 AM<small>Meal 1 — Pre-Workout</small></div>
+      <div>
+        <div class="meal-title">Protein Oats + Shake</div>
+        <div class="meal-items">50g oats dry (NOT 80–100g) + 1 scoop Yoga Bar whey + 150ml milk + 1 small banana or 30g berries</div>
+      </div>
+      <div class="meal-kcal"><span class="knum">~520</span><span class="kmacros">P:45 C:58 F:8</span></div>
+    </div>
+    <div class="meal">
+      <div class="meal-time">10:30 AM<small>Meal 2 — Post-Workout</small></div>
+      <div>
+        <div class="meal-title">Chicken + Rice / Roti</div>
+        <div class="meal-items">150g chicken breast grilled + 150g cooked rice OR 2 rotis + unlimited leafy greens, cucumber, tomato</div>
+      </div>
+      <div class="meal-kcal"><span class="knum">~540</span><span class="kmacros">P:42 C:62 F:6</span></div>
+    </div>
+    <div class="meal">
+      <div class="meal-time">1:30 PM<small>Meal 3 — Midday</small></div>
+      <div>
+        <div class="meal-title">Chicken + Salad + 2 Eggs</div>
+        <div class="meal-items">200g chicken breast + large salad (cucumber, tomato, onion, capsicum) + 1 tbsp olive oil + lemon + 2 boiled eggs</div>
+      </div>
+      <div class="meal-kcal"><span class="knum">~490</span><span class="kmacros">P:60 C:10 F:22</span></div>
+    </div>
+    <div class="meal">
+      <div class="meal-time">5:00 PM<small>Meal 4 — Afternoon</small></div>
+      <div>
+        <div class="meal-title">Chicken + Sweet Potato</div>
+        <div class="meal-items">150g chicken breast + 100g sweet potato OR 1 roti + veggies. Last carb meal of the day.</div>
+      </div>
+      <div class="meal-kcal"><span class="knum">~380</span><span class="kmacros">P:40 C:34 F:5</span></div>
+    </div>
+    <div class="meal">
+      <div class="meal-time">8:30 PM<small>Meal 5 — Dinner</small></div>
+      <div>
+        <div class="meal-title">Egg Scramble — Modified</div>
+        <div class="meal-items">6 whole eggs in 1 tsp olive oil spray (NOT butter) + spinach, capsicum, onion. Mustard sauce fine (5–10 kcal/tsp). Swap 3 whole for whites to cut fat further if needed.</div>
+      </div>
+      <div class="meal-kcal"><span class="knum">~360</span><span class="kmacros">P:30 C:5 F:24</span></div>
+    </div>
+    <div class="meal">
+      <div class="meal-time">10:00 PM<small>Meal 6 — Optional</small></div>
+      <div>
+        <div class="meal-title">Pre-Sleep Casein</div>
+        <div class="meal-items">200g low-fat Greek yogurt OR 150g paneer (cottage cheese). Slow casein — feeds muscles during overnight fast when GH is highest.</div>
+      </div>
+      <div class="meal-kcal"><span class="knum">~130</span><span class="kmacros">P:18 C:8 F:2</span></div>
+    </div>
+  </div>
+
+  <div class="vbox">
+    <h3>Your Specific Diet Fixes</h3>
+    <ul>
+      <li><strong>Butter → Olive Oil Spray:</strong> 15g butter = 107 kcal. Spray = ~10 kcal. Over 30 days = 3,000 kcal saved = nearly 0.4 kg of pure fat from this one change alone.</li>
+      <li><strong>Split 500g chicken across 3 meals:</strong> Body uses ~35–40g protein per meal for MPS. Eating 200g+ in one sitting wastes a large chunk. Spread it — more protein synthesis signals throughout the day.</li>
+      <li><strong>Oats = 50g dry max:</strong> 100g dry oats = 360 kcal. 50g = 180 kcal. You were likely eating 180 extra carb calories every morning without knowing.</li>
+      <li><strong>Mustard is fine:</strong> Yellow / Dijon = 5–10 kcal per tsp. Keep it. Avoid honey mustard or mayo-based blends only.</li>
+      <li><strong>3–4L water daily:</strong> Critical for fat metabolism, appetite control, cortisol management, and kidney function during high protein intake.</li>
+      <li><strong>Track for 4 weeks on MyFitnessPal:</strong> Even advanced lifters are consistently surprised. Your estimate is currently off by 300–500 kcal. 4 weeks of accurate logging trains your eye permanently — you won't need to track forever.</li>
+    </ul>
+  </div>
+
+  <div class="sec-label" style="margin-top:24px">Supplement Stack</div>
+  <div class="sec-title">What to Take</div>
+
+  <div class="supp-grid">
+    <div class="supp-card">
+      <div class="supp-name">Whey Protein</div>
+      <div class="supp-dose">1 scoop / day</div>
+      <div class="supp-when">Already using ✓ — keep it. Pre-workout morning with oats.</div>
+    </div>
+    <div class="supp-card">
+      <div class="supp-name">Creatine Monohydrate</div>
+      <div class="supp-dose">5g / day</div>
+      <div class="supp-when">Every day regardless of training. Most important supplement for preserving strength on a cut. Take any time.</div>
+    </div>
+    <div class="supp-card">
+      <div class="supp-name">Caffeine / Black Coffee</div>
+      <div class="supp-dose">150–200mg</div>
+      <div class="supp-when">30 min pre-workout. Increases fat oxidation, performance, and focus. Black coffee works perfectly.</div>
+    </div>
+    <div class="supp-card">
+      <div class="supp-name">Vitamin D3 + K2</div>
+      <div class="supp-dose">2000–4000 IU</div>
+      <div class="supp-when">Morning with a fat-containing meal. Supports testosterone, immunity, mood — all decline on a cut.</div>
+    </div>
+    <div class="supp-card">
+      <div class="supp-name">Omega-3 Fish Oil</div>
+      <div class="supp-dose">2–3g EPA/DHA</div>
+      <div class="supp-when">With meals. Anti-inflammatory, joint health, and mild fat oxidation support. Especially important on high protein diet.</div>
+    </div>
+    <div class="supp-card">
+      <div class="supp-name">Magnesium Glycinate</div>
+      <div class="supp-dose">300–400mg</div>
+      <div class="supp-when">Before bed. Improves sleep depth and quality. Sleep is when GH peaks — the most underrated recovery tool you have.</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════
+     ROADMAP
+════════════════════════════════════════════════ -->
+<div class="panel" id="roadmap">
+  <div class="sec-label">Month-by-Month Milestones</div>
+  <div class="sec-title">Your 7-Month Battle Plan</div>
+
+  <div class="alert warn">
+    <div class="alert-icon">📅</div>
+    <div><strong>Honest timeline:</strong> By November 2026 you will look dramatically transformed — upper abs visible, arms and shoulders fully shredded, dramatic improvement. Full Garou-level deep separation requires February–March 2027. The last 3–4% BF is the hardest and takes disproportionate time. Plan for the full distance.</div>
+  </div>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-month">July 2026<small>Month 1</small></div>
+      <div class="tl-desc">Calories dialed in and tracked. New split running consistently. Creatine loaded. Water weight drops 1.5–2 kg first 2 weeks. Face noticeably leaner. Waistband loosens. No dramatic muscle definition yet — internal metabolic adaptation.</div>
+      <div class="tl-weight">93–94 kg<small>target</small></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-month">August 2026<small>Month 2</small></div>
+      <div class="tl-desc">Visible changes begin. Shoulder caps defined and rounder. Arms look fuller as fat comes off. Upper chest starts showing shape. Waist visibly smaller in the mirror. Clothes fitting differently. This is the motivating month.</div>
+      <div class="tl-weight">91–92 kg<small>target</small></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-month">September 2026<small>Month 3</small></div>
+      <div class="tl-desc">Upper abs becoming visible in good lighting. Lat V-taper clearly visible from back. Chest-shoulder tie-in showing. Arms shredded. Traps and neck visible. People start commenting. You look like someone who seriously lifts.</div>
+      <div class="tl-weight">89–90 kg<small>target</small></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-month">Oct–Nov 2026<small>Month 4–5</small></div>
+      <div class="tl-desc">Full upper abs visible. Lower abs emerging. Side chest and serratus beginning to show. Shoulder separation front-to-rear clear. By November you look like a serious physique athlete — genuinely impressive transformation from your starting point.</div>
+      <div class="tl-weight">86–88 kg<small>target</small></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-month">Dec 2026<small>Month 6</small></div>
+      <div class="tl-desc">The grind phase. Scale moves slowly but visual changes are dramatic week-to-week. Full 6-pack with lower ab definition. Serratus strips beginning to show. Traps fully visible. Drop calories to 2,200. Add 4th cardio session if needed.</div>
+      <div class="tl-weight">84–86 kg<small>target</small></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-month">Feb–Mar 2027<small>Month 7–8</small></div>
+      <div class="tl-desc">Final shred. Sub-10% BF. Full deep ab separation. Serratus visible. Front delt–bicep groove clear. Traps fully developed and visible. The physique you're working toward. Mental game wins this final phase — the last 2–3% is 80% psychological.</div>
+      <div class="tl-weight">83–85 kg<small>target</small></div>
+    </div>
+  </div>
+
+  <div class="phase-row">
+    <div class="phase-card">
+      <div class="phase-bg">1</div>
+      <div class="ph-label">Weeks 1–6 — Foundation</div>
+      <div class="ph-title">Reset & Build the Habits</div>
+      <div class="ph-desc">Get diet accurate. Track every meal. Start creatine and D3. Hit the new split 6 days/week. Deload at week 6. Target −2 to −3 kg.</div>
+    </div>
+    <div class="phase-card">
+      <div class="phase-bg">2</div>
+      <div class="ph-label">Weeks 7–20 — Main Cut</div>
+      <div class="ph-title">Deep Cut Phase</div>
+      <div class="ph-desc">Consistent deficit. Strength may dip slightly — normal. Keep top lifts as heavy as possible. Visual changes weekly. Target −5 to −7 kg cumulative.</div>
+    </div>
+    <div class="phase-card">
+      <div class="phase-bg">3</div>
+      <div class="ph-label">Weeks 21–30 — Final Shred</div>
+      <div class="ph-title">Last Mile</div>
+      <div class="ph-desc">Sub-12% is the hardest zone. Add 4th cardio. Drop to 2,200 kcal. Sleep 8+ hours non-negotiable. Mental discipline wins this phase entirely.</div>
+    </div>
+  </div>
+
+  <div class="vbox">
+    <h3>Weekly Check-In Protocol</h3>
+    <ul>
+      <li>Weigh every morning after toilet before food — take the <strong>weekly average</strong> (not daily panic readings — weight fluctuates 1–2 kg daily from water and food)</li>
+      <li>Progress photos every 2 weeks — same lighting, same time of day, same pose, same distance from mirror</li>
+      <li>If weight stalls 2+ consecutive weeks AND diet is verified accurate → cut carbs 25–30g OR add 1 cardio session (not both at once)</li>
+      <li>If strength drops 10%+ on main lifts → check sleep quality and total calories before cutting more food</li>
+      <li>Full deload week every 6th week — cut volume 40%, keep weights near normal, take it seriously</li>
+      <li>Never drop below 2,100 kcal — muscle catabolism accelerates sharply below this threshold for an advanced lifter</li>
+    </ul>
+  </div>
+
+  <div class="vbox">
+    <h3>The Four Non-Negotiables</h3>
+    <ul>
+      <li><strong>Sleep 8–9 hours:</strong> Growth hormone peaks in deep sleep. Cutting sleep by 1 hour has been shown to double muscle loss rate and halve fat loss on a deficit. This is not optional — it is training.</li>
+      <li><strong>Track calories for first 4 weeks:</strong> Your current estimate is off by 300–500 kcal. 4 weeks of accurate tracking fixes your eye permanently. Use MyFitnessPal. Weigh your food for those 4 weeks.</li>
+      <li><strong>Manage life stress:</strong> Chronic cortisol from stress directly promotes abdominal fat storage. Even with perfect training and diet, chronic stress will slow results significantly.</li>
+      <li><strong>Consistency over perfection:</strong> 90% adherence to this plan for 7 months beats 100% for 6 weeks then crashing. One bad day doesn't matter. Three bad weeks back to back do. Stay the course.</li>
+    </ul>
+  </div>
+</div>
+
+</div><!-- /content -->
+
+<script>
+function show(id, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({ top: document.querySelector('.tab-wrap').offsetTop - 10, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>

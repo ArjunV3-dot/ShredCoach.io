@@ -1,0 +1,1461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Summer Shred — by Sai Karthik</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream:    #faf7f2;
+  --paper:    #f3ede3;
+  --white:    #ffffff;
+  --ink:      #1a1a18;
+  --ink2:     #3d3d38;
+  --muted:    #8c8880;
+  --rule:     #e0d8cc;
+  --green:    #2e7d4f;
+  --green-bg: #eef6f1;
+  --amber:    #c47c1a;
+  --amber-bg: #fdf4e7;
+  --red:      #b83232;
+  --red-bg:   #fdf0f0;
+  --teal:     #1e6b72;
+  --teal-bg:  #e8f4f5;
+  --purple:   #6b3fa0;
+  --purple-bg:#f3eeff;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  line-height: 1.65;
+}
+
+/* ─── HEADER ─── */
+header {
+  background: var(--white);
+  border-bottom: 1px solid var(--rule);
+  padding: 0 40px;
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  min-height: 58px;
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 10px 0;
+}
+
+.brand-name {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.35rem;
+  color: var(--ink);
+  letter-spacing: -0.3px;
+  line-height: 1;
+}
+
+.brand-sub {
+  font-size: 0.67rem;
+  color: var(--muted);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-top: 3px;
+  font-weight: 500;
+}
+
+.header-pills {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pill {
+  font-size: 0.71rem;
+  font-weight: 500;
+  letter-spacing: 0.4px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  border: 1px solid var(--rule);
+  background: var(--cream);
+  color: var(--ink2);
+}
+.pill.green  { background: var(--green-bg);  color: var(--green);  border-color: #b8ddc9; }
+.pill.amber  { background: var(--amber-bg);  color: var(--amber);  border-color: #f0cfa0; }
+.pill.teal   { background: var(--teal-bg);   color: var(--teal);   border-color: #9dcfd4; }
+
+/* ─── HERO ─── */
+.hero {
+  background: var(--white);
+  border-bottom: 1px solid var(--rule);
+  padding: 52px 40px 44px;
+}
+
+.hero-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.hero-eyebrow {
+  font-size: 0.67rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 13px;
+}
+
+.hero-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+  line-height: 1.08;
+  letter-spacing: -1px;
+  color: var(--ink);
+  margin-bottom: 16px;
+}
+.hero-title em { font-style: italic; color: var(--green); }
+
+.hero-desc {
+  font-size: 0.93rem;
+  color: var(--ink2);
+  line-height: 1.78;
+  max-width: 430px;
+  margin-bottom: 22px;
+}
+
+.hero-sig {
+  font-size: 0.71rem;
+  color: var(--muted);
+  letter-spacing: 1px;
+}
+.hero-sig span { color: var(--teal); font-weight: 600; }
+
+.hero-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+}
+
+.stat-cell {
+  background: var(--white);
+  padding: 20px 18px;
+}
+.stat-cell .s-label {
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 5px;
+}
+.stat-cell .s-val {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.9rem;
+  color: var(--ink);
+  line-height: 1;
+  letter-spacing: -0.5px;
+}
+.stat-cell .s-note {
+  font-size: 0.73rem;
+  color: var(--muted);
+  margin-top: 4px;
+  line-height: 1.35;
+}
+.stat-cell.hi  .s-val { color: var(--green); }
+.stat-cell.amb .s-val { color: var(--amber); }
+.stat-cell.tel .s-val { color: var(--teal);  }
+
+/* ─── TABS ─── */
+.tab-bar {
+  background: var(--white);
+  border-bottom: 1px solid var(--rule);
+  position: sticky;
+  top: 58px;
+  z-index: 99;
+}
+.tabs {
+  display: flex;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 40px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.tabs::-webkit-scrollbar { display: none; }
+
+.tab {
+  font-size: 0.77rem;
+  font-weight: 500;
+  padding: 14px 20px;
+  cursor: pointer;
+  color: var(--muted);
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  background: none;
+  white-space: nowrap;
+  transition: all 0.18s;
+}
+.tab:hover { color: var(--ink); }
+.tab.active { color: var(--green); border-bottom-color: var(--green); }
+
+/* ─── CONTENT ─── */
+.content {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 38px 40px 80px;
+}
+
+.panel { display: none; }
+.panel.active { display: block; }
+
+/* ─── TYPE ─── */
+.sec-eyebrow {
+  font-size: 0.63rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 5px;
+}
+.sec-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.7rem;
+  letter-spacing: -0.5px;
+  color: var(--ink);
+  margin-bottom: 20px;
+  line-height: 1.15;
+}
+
+/* ─── CALLOUTS ─── */
+.callout {
+  display: flex;
+  gap: 12px;
+  padding: 13px 17px;
+  border-radius: 4px;
+  font-size: 0.82rem;
+  line-height: 1.62;
+  margin-bottom: 18px;
+  border: 1px solid;
+}
+.callout-icon { flex-shrink: 0; font-size: 1rem; line-height: 1.62; }
+.callout.green  { background: var(--green-bg);  border-color: #b8ddc9; color: #1f5e3a; }
+.callout.amber  { background: var(--amber-bg);  border-color: #f0cfa0; color: #9a6010; }
+.callout.teal   { background: var(--teal-bg);   border-color: #9dcfd4; color: #155560; }
+.callout.purple { background: var(--purple-bg); border-color: #c9a8ee; color: #522e7c; }
+
+/* ─── INFO BOX ─── */
+.ibox {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  padding: 20px 24px;
+  margin-bottom: 14px;
+}
+.ibox h3 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.05rem;
+  letter-spacing: -0.2px;
+  color: var(--ink);
+  margin-bottom: 10px;
+}
+.ibox ul { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+.ibox ul li {
+  font-size: 0.82rem;
+  color: var(--ink2);
+  padding-left: 16px;
+  position: relative;
+  line-height: 1.55;
+}
+.ibox ul li::before { content: '·'; position: absolute; left: 4px; color: var(--green); font-size: 1.2rem; top: -2px; }
+
+/* ─── WORKOUT ─── */
+.workout-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 26px;
+}
+
+.day-card {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  overflow: hidden;
+}
+
+.day-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 14px 18px 12px;
+  background: var(--paper);
+  border-bottom: 1px solid var(--rule);
+}
+
+.day-num {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.5rem;
+  color: var(--green);
+  line-height: 1;
+  margin-right: 4px;
+}
+.day-name {
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.2px;
+  margin-bottom: 1px;
+}
+.day-focus {
+  font-size: 0.7rem;
+  color: var(--muted);
+}
+
+.day-tag {
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 3px;
+  border: 1px solid;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+.day-tag.push   { background: var(--amber-bg);  color: var(--amber);  border-color: #f0cfa0; }
+.day-tag.pull   { background: var(--teal-bg);   color: var(--teal);   border-color: #9dcfd4; }
+.day-tag.legs   { background: var(--green-bg);  color: var(--green);  border-color: #b8ddc9; }
+.day-tag.upper  { background: var(--purple-bg); color: var(--purple); border-color: #c9a8ee; }
+.day-tag.rest   { background: var(--paper);     color: var(--muted);  border-color: var(--rule); }
+
+.ex-group-head {
+  padding: 5px 18px;
+  background: #f8f5f0;
+  border-bottom: 1px solid #ede8de;
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.ex-list { list-style: none; }
+.ex-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 9px 18px;
+  border-bottom: 1px solid #f2ede4;
+  font-size: 0.81rem;
+}
+.ex-list li:last-child { border-bottom: none; }
+
+.ex-left { flex: 1; min-width: 0; }
+.ex-name { color: var(--ink); font-weight: 500; display: block; }
+.ex-why  { font-size: 0.69rem; color: var(--muted); display: block; margin-top: 1px; line-height: 1.3; }
+
+.ex-sets {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.74rem;
+  color: var(--green);
+  white-space: nowrap;
+  margin-left: 10px;
+  padding-top: 2px;
+  flex-shrink: 0;
+  font-weight: 500;
+}
+
+.etag {
+  display: inline-block;
+  font-size: 0.52rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 1px 5px;
+  border-radius: 2px;
+  margin-left: 4px;
+  vertical-align: middle;
+}
+.etag.compound { background: var(--amber-bg); color: var(--amber); }
+.etag.iso      { background: var(--teal-bg);  color: var(--teal);  }
+.etag.new      { background: var(--green-bg); color: var(--green); }
+
+.cardio-strip {
+  padding: 9px 18px;
+  border-top: 1px solid var(--rule);
+  font-size: 0.76rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.cardio-strip.on  { background: var(--green-bg); color: var(--green); }
+.cardio-strip.off { background: var(--paper);    color: var(--muted); }
+
+/* ─── DIET ─── */
+.macro-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  margin-bottom: 24px;
+}
+.mac-cell {
+  background: var(--white);
+  padding: 18px 16px;
+  text-align: center;
+}
+.mac-cell .mv {
+  font-family: 'DM Serif Display', serif;
+  font-size: 2rem;
+  color: var(--ink);
+  line-height: 1;
+  letter-spacing: -0.5px;
+}
+.mac-cell .ml {
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 4px;
+}
+.mac-cell .mn { font-size: 0.71rem; color: var(--muted); margin-top: 4px; line-height: 1.35; }
+.mac-cell.g .mv { color: var(--green); }
+.mac-cell.a .mv { color: var(--amber); }
+.mac-cell.t .mv { color: var(--teal);  }
+
+.meal-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin-bottom: 26px;
+}
+
+.meal-card {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  overflow: hidden;
+}
+.meal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 17px;
+  background: var(--paper);
+  border-bottom: 1px solid var(--rule);
+}
+.meal-time-label {
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 2px;
+}
+.meal-name {
+  font-family: 'DM Serif Display', serif;
+  font-size: 0.98rem;
+  color: var(--ink);
+  line-height: 1.1;
+}
+.meal-kcal {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--amber);
+  background: var(--amber-bg);
+  padding: 4px 10px;
+  border: 1px solid #f0cfa0;
+  border-radius: 3px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.meal-body { padding: 12px 17px; }
+
+.meal-items { list-style: none; }
+.meal-items li {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 0.8rem;
+  color: var(--ink2);
+  padding: 6px 0;
+  border-bottom: 1px solid #f4f0e8;
+  line-height: 1.4;
+}
+.meal-items li:last-child { border-bottom: none; }
+.item-name { flex: 1; }
+.item-name .item-note { display: block; font-size: 0.68rem; color: var(--muted); margin-top: 1px; }
+.item-macro {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.71rem;
+  color: var(--green);
+  white-space: nowrap;
+  margin-left: 12px;
+  font-weight: 500;
+}
+.meal-total {
+  background: var(--green-bg);
+  padding: 7px 17px;
+  border-top: 1px solid #b8ddc9;
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--green);
+  display: flex;
+  justify-content: space-between;
+  font-family: 'DM Mono', monospace;
+}
+
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+.food-card { background: var(--white); border: 1px solid var(--rule); overflow: hidden; }
+.food-head {
+  padding: 9px 17px;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--rule);
+}
+.food-head.yes { background: var(--green-bg); color: var(--green); }
+.food-head.no  { background: var(--red-bg);   color: var(--red);   }
+.food-body { padding: 10px 17px; }
+.food-body li {
+  list-style: none;
+  font-size: 0.8rem;
+  color: var(--ink2);
+  padding: 6px 0;
+  border-bottom: 1px solid #f4f0e8;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  line-height: 1.4;
+}
+.food-body li:last-child { border-bottom: none; }
+.food-body li .dot { font-size: 0.85rem; flex-shrink: 0; }
+
+@media (max-width: 900px) {
+  header { padding: 0 18px; }
+  .header-pills { display: none; }
+  .hero { padding: 32px 18px 26px; }
+  .hero-inner { grid-template-columns: 1fr; gap: 26px; }
+  .hero-stats { grid-template-columns: 1fr 1fr; }
+  .tabs { padding: 0 18px; }
+  .content { padding: 26px 18px 60px; }
+  .workout-grid { grid-template-columns: 1fr; }
+  .macro-strip { grid-template-columns: repeat(2,1fr); }
+  .meal-grid { grid-template-columns: 1fr; }
+  .two-col { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <div class="brand-name">Summer Shred</div>
+    <div class="brand-sub">Designed by Sai Karthik</div>
+  </div>
+  <div class="header-pills">
+    <div class="pill teal">5-Day Split</div>
+    <div class="pill green">Build + Burn</div>
+    <div class="pill amber">Low Carb · High Protein</div>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">Skinny Fat Transformation</div>
+      <div class="hero-title">Strip the fat.<br><em>Build the muscle.</em><br>Look the part.</div>
+      <div class="hero-desc">
+        A compound-first 5-day split — Push, Pull, Legs, Upper, Lower — built to build real muscle while cutting the skinny fat. Paired with a high-protein South Indian diet that uses food you already eat.
+      </div>
+      <div class="hero-sig">Program designed for fat lose
+        &nbsp;·&nbsp; <span>Curated by Sai Karthik</span></div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-cell hi">
+        <div class="s-label">Split</div>
+        <div class="s-val">PPL+</div>
+        <div class="s-note">Push · Pull · Legs · Upper · Lower — 5 days</div>
+      </div>
+      <div class="stat-cell">
+        <div class="s-label">Priority</div>
+        <div class="s-val">Recomp</div>
+        <div class="s-note">Build muscle + burn fat simultaneously</div>
+      </div>
+      <div class="stat-cell amb">
+        <div class="s-label">Daily Calories</div>
+        <div class="s-val">~1,950</div>
+        <div class="s-note">Slight deficit — lose fat, keep muscle</div>
+      </div>
+      <div class="stat-cell hi">
+        <div class="s-label">Daily Protein</div>
+        <div class="s-val">~155g</div>
+        <div class="s-note">The one number that matters most — hit it daily</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="tab-bar">
+  <div class="tabs">
+    <button class="tab active" onclick="show('workout',this)">Workout Split</button>
+    <button class="tab" onclick="show('diet',this)">Diet Plan</button>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- ════════════════════════════════
+     WORKOUT
+═════════════════════════════════ -->
+<div class="panel active" id="workout">
+  <div class="sec-eyebrow">5-Day Push · Pull · Legs · Upper · Lower</div>
+  <div class="sec-title">Compound-First Training Split</div>
+
+  <div class="callout green">
+    <div class="callout-icon">💡</div>
+    <div><strong>How this is built:</strong> Every day opens with a heavy compound lift — squat, deadlift, bench, overhead press, barbell row. These are the movements that build the most muscle and burn the most calories. Isolation work follows to target specific muscle groups for shape and separation. This is the same structure as an advanced split, scaled to your current capacity.</div>
+  </div>
+
+  <div class="workout-grid">
+
+    <!-- DAY 1 — PUSH -->
+    <div class="day-card">
+      <div class="day-head">
+        <div>
+          <div style="display:flex;align-items:baseline;gap:6px">
+            <span class="day-num">Day 1</span>
+          </div>
+          <div class="day-name">Push — Chest · Shoulders · Triceps</div>
+          <div class="day-focus">Compound strength + isolation detail</div>
+        </div>
+        <div class="day-tag push">Push</div>
+      </div>
+
+      <div class="ex-group-head">Chest — Primary</div>
+      <ul class="ex-list">
+        <li>
+          <div class="ex-left">
+            <span class="ex-name">Barbell Bench Press <span class="etag compound">compound</span></span>
+            <span class="ex-why">Primary compound — maximum chest + shoulder + tricep stimulus</span>
+          </div>
+          <span class="ex-sets">4 × 5–8</span>
+        </li>
+        <li>
+          <div class="ex-left">
+            <span class="ex-name">Incline DB Press <span class="etag compound">compound</span></span>
+            <span class="ex-why">Upper chest — the shelf that shows when lean. Slow 3s eccentric.</span>
+          </div>
+          <span class="ex-sets">3 × 10–12</span>
+        </li>
+        <li>
+          <div class="ex-left">
+            <span class="ex-name">Cable Fly — Low to High <span class="etag iso">isolation</span></span>
+            <span class="ex-why">Serratus + outer pec sweep. Peak squeeze at centre.</span>
+          </div>
+          <span class="ex-sets">3 × 12–15</span>
+        </li>
+      </ul>
+
+      <div class="ex-group-head">Shoulders</div>
+      <ul class="ex-list">
+        <li>
+          <div class="ex-left">
+            <span class="ex-name">Seated DB Shoulder Press <span class="etag compound">compound</span></span>
+            <span class="ex-why">Full overhead range — overall shoulder mass builder</span>
+          </div>
+          <span class="ex-sets">3 × 10–12</span>
+        </li>
+        <li>
+          <div class="ex-left">
+            <span class="ex-name">DB Lateral Raise <span class="etag iso">isolation</span></span>
+            <span class="ex-why">Side delt — makes shoulders look wide and capped</span>
+          </div>
+          <span class="ex-sets">4 × 15–20</span>
+        </li>
+        <li>
+          <div class="ex-left">
+            <span class="ex-name">DB Front Raise <span class="etag iso">isolation</span></span>
+            <span class="ex-why">Anterior delt — creates the front delt / bicep separation groove</span>
+          </div>
+          <span class="ex-sets">3 × 12–15</span>
+        </li>
+      </ul>
+
+      <div class="ex-group-head">Triceps</div>
+      <ul class="ex-list">
+        <li>
+          <div class="ex-left">
+            <span class="ex-name">Overhead Tricep Extension — DB or Cable</span>
+            <span class="ex-why">Long head stretch — largest tricep head, upper arm thickness</span>
+          </div>
+          <span class="ex-sets">3 × 12–15</span>
+        </li>
+        <li>
+          <div class="ex-left">
+            <span class="ex-name">Rope Pushdown <span class="etag iso">isolation</span></span>
+            <span class="ex-why">Lateral head — horseshoe detail. Elbows pinned to sides.</span>
+          </div>
+          <span class="ex-sets">3 × 15</span>
+        </li>
+      </ul>
+      <div class="cardio-strip on">🚶 Incline walk — 20 min post-workout</div>
+    </div>
+
+    <!-- DAY 2 — PULL -->
+    <div class="day-card">
+      <div class="day-head">
+        <div>
+          <div style="display:flex;align-items:baseline;gap:6px">
+            <span class="day-num">Day 2</span>
+          </div>
+          <div class="day-name">Pull — Back · Traps · Biceps</div>
+          <div class="day-focus">Width + thickness + arm separation</div>
+        </div>
+        <div class="day-tag pull">Pull</div>
+      </div>
+
+      <div class="ex-group-head">Back — Compound Foundation</div>
+      <ul class="ex-list">
+        <li>
+          <div class="ex-left">
+            <span class="ex-name">Barbell Row <span class="etag compound">compound</span></span>
+            <span class="ex-why">Primary back thickness movement — mid back, traps, lats all hit</span>
+          </div>
+          <span class="ex-sets">4 × 6–8</span>
+        </li>
+        <li>
+          <div class="ex-left">
+            <span class="ex-name">Pull-Ups or Assisted Pull-Ups <span class="etag compound">compound</span></span>
+            <span class="ex-why">Lat width. Work toward unassisted — add weight over time.</span>
+          </div>
+          <span class="ex-sets">4 × 6–10</span>
+        </li>
+        <li>
+          <div class="ex-left">
+            <span class="ex-name">Wide-Grip Lat Pulldown <span class="etag iso">isolation</span></span>
+            <span class="ex-why">Upper lat sweep — V-taper from the front. Full stretch at top.</span>
+          </div>
+          <span class="ex-sets">3 × 10–12</span>
+        </li>
+        <li>
+          <div class="ex-left">
+            <span class="ex-name">Seated Cable Row</span>
+            <span class="ex-why">Mid-back detail. Drive elbows past the body, squeeze shoulder blades.</span>
+          </div>
+          <span class="ex-sets">3 × 10–12</span>
+        </li>
+        <li>
+          <div class="ex-left">
+            <span class="ex-name">Straight-Arm Pulldown <span class="etag iso">isolation</span></span>
+            <span class="ex-why">Lower lat + serratus tie-in. Arms straight throughout.</span>
+          </div>
+          <span class="ex-sets">3 × 12–15</span>
+        </li>
+      </ul>
+
+      <div class="ex-group-head">Traps</div>
+      <ul class="ex-list">
+        <li>
+          <div class="ex-left">
+            <span class="ex-name">Barbell or DB Shrug</span>
+            <span class="ex-why">Upper trap mass — squeeze 1s at top. Builds neck-to-shoulder thickness.</span>
+          </div>
+          <span class="ex-sets">4 × 12–15</span>
+        </li>
+        <li>
+          <div class="ex-left">
+            <span class="ex-name">Face Pull — Rope <span class="etag iso">isolation</span></span>
+            <span class="ex-why">Rear delt + lower trap + external rotation. Fixes posture.</span>
+          </div>
+          <span class="ex-sets">3 × 15–20</span>
+        </li>
+      </ul>
+
+      <div class="ex-group-head">Biceps</div>
+      <ul class="ex-list">
+        <li>
+          <div class="ex-left">
+            <span class="ex-name">Standing Barbell Curl <span class="etag compound">compound</span></span>
+            <span class="ex-why">Short head dominant — bicep width. Both heads under load.</span>
+          </div>
+          <span class="ex-sets">3 × 8–10</span>
+        </li>
+        <li>
+          <div class="ex-left">
+            <span class="ex-name">Incline DB Curl <span class="etag iso">isolation</span></span>
+            <span class="ex-why">Long head stretch — builds peak and delt separation</span>
+          </div>
+          <span class="ex-sets">3 × 10–12</span>
+        </li>
+        <li>
+          <div class="ex-left">
+            <span class="ex-name">Hammer Curl <span class="etag iso">isolation</span></span>
+            <span class="ex-why">Brachialis — fills the gap between bicep and elbow</span>
+          </div>
+          <span class="ex-sets">2 × 12</span>
+        </li>
+      </ul>
+      <div class="cardio-strip off">🚶 No cardio — heavy pull day, protect recovery</div>
+    </div>
+
+    <!-- DAY 3 — LEGS -->
+    <div class="day-card">
+      <div class="day-head">
+        <div>
+          <div style="display:flex;align-items:baseline;gap:6px">
+            <span class="day-num">Day 3</span>
+          </div>
+          <div class="day-name">Legs — Quads · Hams · Glutes · Calves</div>
+          <div class="day-focus">Full lower body — compound + isolation</div>
+        </div>
+        <div class="day-tag legs">Legs</div>
+      </div>
+
+      <div class="ex-group-head">Primary Compound</div>
+      <ul class="ex-list">
+        <li>
+          <div class="ex-left">
+            <span class="ex-name">Barbell Back Squat <span class="etag compound">compound</span></span>
+            <span class="ex-why">The king. Full depth. Most important leg movement — quads, glutes, core, everything.</span>
+          </div>
+          <span class="ex-sets">4 × 6–8</span>
+        </li>
+        <li>
+          <div class="ex-left">
+            <span class="ex-name">Romanian Deadlift — DB or Barbell <span class="etag compound">compound</span></span>
+            <span class="ex-why">Hamstring + glute. Hip hinge — feel the stretch in the back of the legs.</span>
+          </div>
+          <span class="ex-sets">3 × 10–12</span>
+        </li>
+      </ul>
+
+      <div class="ex-group-head">Volume</div>
+      <ul class="ex-list">
+        <li>
+          <div class="ex-left">
+            <span class="ex-name">Leg Press</span>
+            <span class="ex-why">High foot placement — quad + glute activation. After squats this burns.</span>
+          </div>
+          <span class="ex-sets">3 × 12–15</span>
+        </li>
+        <li>
+          <div class="ex-left">
+            <span class="ex-name">Walking Lunges — DB</span>
+            <span class="ex-why">Unilateral — fixes imbalances and hits quad-glute tie-in</span>
+          </div>
+          <span class="ex-sets">3 × 10/leg</span>
+        </li>
+        <li>
+          <div class="ex-left">
+            <span class="ex-name">Lying Leg Curl <span class="etag iso">isolation</span></span>
+            <span class="ex-why">2s eccentric — hamstring detail. Often weak in people carrying body fat.</span>
+          </div>
+          <span class="ex-sets">3 × 12–15</span>
+        </li>
+        <li>
+          <div class="ex-left">
+            <span class="ex-name">Leg Extension <span class="etag iso">isolation</span></span>
+            <span class="ex-why">Quad isolation — teardrop muscle above knee. Finish with this.</span>
+          </div>
+          <span class="ex-sets">3 × 15</span>
+        </li>
+      </ul>
+
+      <div class="ex-group-head">Calves + Core</div>
+      <ul class="ex-list">
+        <li>
+          <div class="ex-left">
+            <span class="ex-name">Standing Calf Raise</span>
+            <span class="ex-why">Slow negative, full dorsiflexion. Calves need high reps.</span>
+          </div>
+          <span class="ex-sets">4 × 20</span>
+        </li>
+        <li>
+          <div class="ex-left">
+            <span class="ex-name">Hanging Leg Raise or Ab Wheel</span>
+            <span class="ex-why">Core finisher — controlled, no swinging</span>
+          </div>
+          <span class="ex-sets">3 × 12–15</span>
+        </li>
+      </ul>
+      <div class="cardio-strip on">🏃 Stairmaster or brisk walk — 20 min</div>
+    </div>
+
+    <!-- DAY 4 — REST -->
+    <div class="day-card">
+      <div class="day-head">
+        <div>
+          <div style="display:flex;align-items:baseline;gap:6px">
+            <span class="day-num">Day 4</span>
+          </div>
+          <div class="day-name">Rest / Active Recovery</div>
+          <div class="day-focus">Mobility · Walks · Sleep</div>
+        </div>
+        <div class="day-tag rest">Rest</div>
+      </div>
+      <div class="ex-group-head">Recovery Protocol</div>
+      <ul class="ex-list">
+        <li>
+          <div class="ex-left">
+            <span class="ex-name">Hip flexor + hamstring stretch</span>
+            <span class="ex-why">Post-leg day — prevents lower back tightness and next session soreness</span>
+          </div>
+          <span class="ex-sets">10 min</span>
+        </li>
+        <li>
+          <div class="ex-left">
+            <span class="ex-name">Dead hangs</span>
+            <span class="ex-why">Spinal decompression after heavy pulls and rows</span>
+          </div>
+          <span class="ex-sets">3 × 30–45s</span>
+        </li>
+        <li>
+          <div class="ex-left">
+            <span class="ex-name">Flat walk — 25–30 min</span>
+            <span class="ex-why">Low stress, keeps NEAT up and burns extra calories passively</span>
+          </div>
+          <span class="ex-sets">optional</span>
+        </li>
+        <li>
+          <div class="ex-left">
+            <span class="ex-name">Sleep 7.5–8 hours</span>
+            <span class="ex-why">Muscle is built during sleep. This day matters as much as Day 1.</span>
+          </div>
+          <span class="ex-sets">mandatory</span>
+        </li>
+      </ul>
+      <div class="cardio-strip off">🌿 No gym — full recovery</div>
+    </div>
+
+    <!-- DAY 5 — UPPER -->
+    <div class="day-card">
+      <div class="day-head">
+        <div>
+          <div style="display:flex;align-items:baseline;gap:6px">
+            <span class="day-num">Day 5</span>
+          </div>
+          <div class="day-name">Upper — Shoulders · Arms · Detail</div>
+          <div class="day-focus">3D shoulders · Short head bicep · Tricep shape</div>
+        </div>
+        <div class="day-tag upper">Upper</div>
+      </div>
+
+      <div class="ex-group-head">Overhead Press — Compound</div>
+      <ul class="ex-list">
+        <li>
+          <div class="ex-left">
+            <span class="ex-name">Barbell or DB Overhead Press <span class="etag compound">compound</span></span>
+            <span class="ex-why">Strict press — overall shoulder mass and strength. Full overhead lockout.</span>
+          </div>
+          <span class="ex-sets">4 × 8–10</span>
+        </li>
+        <li>
+          <div class="ex-left">
+            <span class="ex-name">Arnold Press <span class="etag iso">isolation</span></span>
+            <span class="ex-why">Rotation hits all 3 delt heads — creates the distinct front / side separation</span>
+          </div>
+          <span class="ex-sets">3 × 10–12</span>
+        </li>
+      </ul>
+
+      <div class="ex-group-head">Shoulder Isolation</div>
+      <ul class="ex-list">
+        <li>
+          <div class="ex-left">
+            <span class="ex-name">Cable Lateral Raise <span class="etag iso">isolation</span></span>
+            <span class="ex-why">Constant tension — builds medial head width. Better than DB for isolation.</span>
+          </div>
+          <span class="ex-sets">4 × 15–20</span>
+        </li>
+        <li>
+          <div class="ex-left">
+            <span class="ex-name">Rear Delt Machine Fly <span class="etag iso">isolation</span></span>
+            <span class="ex-why">Posterior head — rounds out the shoulder, 3D cannonball look</span>
+          </div>
+          <span class="ex-sets">3 × 15–20</span>
+        </li>
+      </ul>
+
+      <div class="ex-group-head">Biceps — Short Head + Peak</div>
+      <ul class="ex-list">
+        <li>
+          <div class="ex-left">
+            <span class="ex-name">EZ Bar Preacher Curl <span class="etag iso">isolation</span></span>
+            <span class="ex-why">#1 short head exercise — inner bicep width and fullness visible from front</span>
+          </div>
+          <span class="ex-sets">4 × 10–12</span>
+        </li>
+        <li>
+          <div class="ex-left">
+            <span class="ex-name">Spider Curl or Concentration Curl <span class="etag iso">isolation</span></span>
+            <span class="ex-why">Peak contraction — forces the bicep to fully squeeze and "pop" at top</span>
+          </div>
+          <span class="ex-sets">3 × 10–12</span>
+        </li>
+      </ul>
+
+      <div class="ex-group-head">Triceps</div>
+      <ul class="ex-list">
+        <li>
+          <div class="ex-left">
+            <span class="ex-name">Skullcrusher — EZ Bar <span class="etag compound">compound</span></span>
+            <span class="ex-why">Long head mass — biggest tricep head. Controls upper arm size.</span>
+          </div>
+          <span class="ex-sets">3 × 10–12</span>
+        </li>
+        <li>
+          <div class="ex-left">
+            <span class="ex-name">Rope Pushdown superset Cable Curl</span>
+            <span class="ex-why">Finisher superset — tri lateral head + bicep pump. Minimal rest between.</span>
+          </div>
+          <span class="ex-sets">3 × 15 each</span>
+        </li>
+      </ul>
+      <div class="cardio-strip off">🚶 Optional short walk — 15 min only</div>
+    </div>
+
+    <!-- DAY 6 — LOWER -->
+    <div class="day-card">
+      <div class="day-head">
+        <div>
+          <div style="display:flex;align-items:baseline;gap:6px">
+            <span class="day-num">Day 6</span>
+          </div>
+          <div class="day-name">Lower — Posterior Chain + Core</div>
+          <div class="day-focus">Deadlift · Hams · Glutes · Abs · Serratus</div>
+        </div>
+        <div class="day-tag legs">Lower</div>
+      </div>
+
+      <div class="ex-group-head">Primary Compound</div>
+      <ul class="ex-list">
+        <li>
+          <div class="ex-left">
+            <span class="ex-name">Conventional Deadlift <span class="etag compound">compound</span></span>
+            <span class="ex-why">The most important movement for back thickness, trap development and posterior chain. Do this first.</span>
+          </div>
+          <span class="ex-sets">4 × 5–6</span>
+        </li>
+      </ul>
+
+      <div class="ex-group-head">Posterior Chain</div>
+      <ul class="ex-list">
+        <li>
+          <div class="ex-left">
+            <span class="ex-name">Barbell Hip Thrust <span class="etag compound">compound</span></span>
+            <span class="ex-why">Heavy — full glute squeeze and hold 1s at top. Glute mass and shape.</span>
+          </div>
+          <span class="ex-sets">3 × 10–12</span>
+        </li>
+        <li>
+          <div class="ex-left">
+            <span class="ex-name">Lying Leg Curl</span>
+            <span class="ex-why">Hamstring isolation — 2s negative. Second session this week for hams.</span>
+          </div>
+          <span class="ex-sets">4 × 12–15</span>
+        </li>
+        <li>
+          <div class="ex-left">
+            <span class="ex-name">Neutral-Grip Lat Pulldown <span class="etag iso">isolation</span></span>
+            <span class="ex-why">Lower lat sweep — creates width visible from the front with arms down</span>
+          </div>
+          <span class="ex-sets">3 × 12</span>
+        </li>
+        <li>
+          <div class="ex-left">
+            <span class="ex-name">DB Pullover <span class="etag iso">isolation</span></span>
+            <span class="ex-why">Serratus + side chest tie-in. The ribcage muscle strips — trained, not just revealed.</span>
+          </div>
+          <span class="ex-sets">3 × 12–15</span>
+        </li>
+      </ul>
+
+      <div class="ex-group-head">Core + Calves</div>
+      <ul class="ex-list">
+        <li>
+          <div class="ex-left">
+            <span class="ex-name">Cable Crunch — Weighted</span>
+            <span class="ex-why">Build the ab muscle. It's there — the cut will reveal it. Train it with load.</span>
+          </div>
+          <span class="ex-sets">3 × 15–20</span>
+        </li>
+        <li>
+          <div class="ex-left">
+            <span class="ex-name">Plank</span>
+            <span class="ex-why">Neutral spine, squeeze everything. Build from 30s toward 60s.</span>
+          </div>
+          <span class="ex-sets">3 × 45s</span>
+        </li>
+        <li>
+          <div class="ex-left">
+            <span class="ex-name">Seated Calf Raise</span>
+            <span class="ex-why">Soleus — lower leg fullness. Different angle from Day 3 standing raises.</span>
+          </div>
+          <span class="ex-sets">4 × 20</span>
+        </li>
+      </ul>
+      <div class="cardio-strip on">🏃 Incline walk — 20 min post-workout</div>
+    </div>
+
+  </div><!-- /workout-grid -->
+
+  <div class="callout amber">
+    <div class="callout-icon">📈</div>
+    <div><strong>Progressive overload — the only rule that grows muscle:</strong> Every week, aim for either 1 more rep than last week, or 0.5–1 kg heavier on the bar. Write it down in a notebook or your phone after every session. If you are lifting the same weight for the same reps week after week — you are not building muscle, you are maintaining. Track it.</div>
+  </div>
+
+  <div class="ibox">
+    <h3>Why Each Day Is Structured This Way</h3>
+    <ul>
+      <li><strong>Compound first, isolation after:</strong> Heavy compound lifts (bench, squat, deadlift, row, OHP) require full energy and CNS output. Always hit these first when you're fresh. Isolation exercises after compound work is pre-fatigued and produces more targeted stimulation.</li>
+      <li><strong>Traps trained on Pull day + Upper day:</strong> Shrugs on Day 2, farmer's carries or shrugs optional on Day 5. Deadlifts on Day 6 hit mid-trap heavily. Traps need volume across the week — they recover fast.</li>
+      <li><strong>Biceps hit twice — short and long head:</strong> Day 2 = barbell curl (short head) + incline curl (long head) + hammer. Day 5 = preacher curl (short head peak) + spider curl. Both functions covered both weeks.</li>
+      <li><strong>Cardio = 3 sessions of 20 min max:</strong> Enough to accelerate fat loss without eating muscle. Diet does the real work — cardio is just a multiplier. More is not better for a recomp goal.</li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════
+     DIET
+═════════════════════════════════ -->
+<div class="panel" id="diet">
+  <div class="sec-eyebrow">South Indian Low-Carb High-Protein Diet</div>
+  <div class="sec-title">What to eat, every day — precise portions</div>
+
+  <div class="callout teal">
+    <div class="callout-icon">🍽️</div>
+    <div><strong>The approach:</strong> South Indian food is naturally excellent — the problem is the rice-to-protein ratio. Most South Indian plates are 70% rice and 30% everything else. We flip that. Same dishes, same flavours — restructured portions. One strategic rice serving near your workout. Everything else high protein, low carb.</div>
+  </div>
+
+  <div class="macro-strip">
+    <div class="mac-cell g">
+      <div class="mv">~1,950</div>
+      <div class="ml">Calories / Day</div>
+      <div class="mn">Slight deficit — fat loss without muscle loss</div>
+    </div>
+    <div class="mac-cell g">
+      <div class="mv">155g</div>
+      <div class="ml">Protein</div>
+      <div class="mn">Hit this number every single day. Non-negotiable.</div>
+    </div>
+    <div class="mac-cell a">
+      <div class="mv">130g</div>
+      <div class="ml">Carbs</div>
+      <div class="mn">Low. One rice serving, rest from dal + veg.</div>
+    </div>
+    <div class="mac-cell t">
+      <div class="mv">70g</div>
+      <div class="ml">Fats</div>
+      <div class="mn">Eggs, coconut oil (small), fish, dal</div>
+    </div>
+  </div>
+
+  <div class="meal-grid">
+
+    <div class="meal-card">
+      <div class="meal-head">
+        <div>
+          <div class="meal-time-label">6:30 AM · Meal 1</div>
+          <div class="meal-name">Morning Protein Start</div>
+        </div>
+        <div class="meal-kcal">~430 kcal</div>
+      </div>
+      <div class="meal-body">
+        <ul class="meal-items">
+          <li>
+            <div class="item-name">4 whole eggs — scrambled or boiled
+              <span class="item-note">1 tsp coconut oil or ghee. Not butter.</span>
+            </div>
+            <span class="item-macro">28g P</span>
+          </li>
+          <li>
+            <div class="item-name">1 scoop whey protein — water
+              <span class="item-note">Mix in 200ml water. No milk — saves 80 kcal.</span>
+            </div>
+            <span class="item-macro">24g P</span>
+          </li>
+          <li>
+            <div class="item-name">Black coffee or green tea (no sugar)</div>
+            <span class="item-macro">0g P</span>
+          </li>
+        </ul>
+      </div>
+      <div class="meal-total"><span>Meal total</span><span>~52g protein</span></div>
+    </div>
+
+    <div class="meal-card">
+      <div class="meal-head">
+        <div>
+          <div class="meal-time-label">10:00 AM · Meal 2 — Near Workout</div>
+          <div class="meal-name">Chicken + Rice (Workout Meal)</div>
+        </div>
+        <div class="meal-kcal">~540 kcal</div>
+      </div>
+      <div class="meal-body">
+        <ul class="meal-items">
+          <li>
+            <div class="item-name">150g chicken breast — grilled or kuzhambu
+              <span class="item-note">Pepper chicken varuval, chettinad dry, any preparation without cream</span>
+            </div>
+            <span class="item-macro">42g P</span>
+          </li>
+          <li>
+            <div class="item-name">100g cooked rice — 1 small cup only
+              <span class="item-note">This is your one and only rice serving of the day. Timed near workout.</span>
+            </div>
+            <span class="item-macro">3g P</span>
+          </li>
+          <li>
+            <div class="item-name">Sambar or rasam — 1 katori
+              <span class="item-note">Dal-based, adds protein. Avoid coconut-heavy versions here.</span>
+            </div>
+            <span class="item-macro">5g P</span>
+          </li>
+          <li>
+            <div class="item-name">Cucumber + tomato + raw onion — unlimited</div>
+            <span class="item-macro">1g P</span>
+          </li>
+        </ul>
+      </div>
+      <div class="meal-total"><span>Meal total</span><span>~51g protein</span></div>
+    </div>
+
+    <div class="meal-card">
+      <div class="meal-head">
+        <div>
+          <div class="meal-time-label">1:30 PM · Meal 3</div>
+          <div class="meal-name">Fish + Dal + Vegetables</div>
+        </div>
+        <div class="meal-kcal">~490 kcal</div>
+      </div>
+      <div class="meal-body">
+        <ul class="meal-items">
+          <li>
+            <div class="item-name">150g fish — seer fish / rohu / tilapia / sardines
+              <span class="item-note">Fish fry, fish curry (tomato-based). No coconut milk. Grilled is best.</span>
+            </div>
+            <span class="item-macro">38g P</span>
+          </li>
+          <li>
+            <div class="item-name">1 cup toor dal or moong dal
+              <span class="item-note">Paruppu — good plant protein, keeps you full, excellent South Indian staple</span>
+            </div>
+            <span class="item-macro">9g P</span>
+          </li>
+          <li>
+            <div class="item-name">1 cup kootu or poriyal — any vegetable
+              <span class="item-note">Beans poriyal, vazhakai curry, cabbage, drumstick — all low carb and local</span>
+            </div>
+            <span class="item-macro">3g P</span>
+          </li>
+          <li>
+            <div class="item-name">No rice at this meal
+              <span class="item-note">This is where the diet changes most from typical South Indian eating. Skip the second rice.</span>
+            </div>
+            <span class="item-macro">—</span>
+          </li>
+        </ul>
+      </div>
+      <div class="meal-total"><span>Meal total</span><span>~50g protein</span></div>
+    </div>
+
+    <div class="meal-card">
+      <div class="meal-head">
+        <div>
+          <div class="meal-time-label">4:30 PM · Meal 4</div>
+          <div class="meal-name">Evening Protein Snack</div>
+        </div>
+        <div class="meal-kcal">~220 kcal</div>
+      </div>
+      <div class="meal-body">
+        <ul class="meal-items">
+          <li>
+            <div class="item-name">2 boiled eggs
+              <span class="item-note">Keep a batch boiled in the fridge — easiest protein source</span>
+            </div>
+            <span class="item-macro">12g P</span>
+          </li>
+          <li>
+            <div class="item-name">30g roasted peanuts or chana
+              <span class="item-note">South Indian staple snack. Good fats + protein. Not fried namkeen.</span>
+            </div>
+            <span class="item-macro">8g P</span>
+          </li>
+          <li>
+            <div class="item-name">Buttermilk — mor with cumin + salt
+              <span class="item-note">Low calorie, probiotic, rehydrating. Far better than chai with sugar.</span>
+            </div>
+            <span class="item-macro">3g P</span>
+          </li>
+        </ul>
+      </div>
+      <div class="meal-total"><span>Meal total</span><span>~23g protein</span></div>
+    </div>
+
+    <div class="meal-card">
+      <div class="meal-head">
+        <div>
+          <div class="meal-time-label">8:00 PM · Meal 5 — Dinner</div>
+          <div class="meal-name">High Protein, Zero Rice Dinner</div>
+        </div>
+        <div class="meal-kcal">~440 kcal</div>
+      </div>
+      <div class="meal-body">
+        <ul class="meal-items">
+          <li>
+            <div class="item-name">150g chicken — South Indian preparation
+              <span class="item-note">Chicken kuzhambu (less oil), pepper chicken, dry varuval. No butter or cream curries.</span>
+            </div>
+            <span class="item-macro">40g P</span>
+          </li>
+          <li>
+            <div class="item-name">2 eggs — added to curry or scrambled
+              <span class="item-note">Muttai kuzhambu is perfect. Adds volume and protein at low calories.</span>
+            </div>
+            <span class="item-macro">12g P</span>
+          </li>
+          <li>
+            <div class="item-name">Stir-fried vegetables — any sabzi, unlimited
+              <span class="item-note">Brinjal, drumstick, cabbage, cauliflower, spinach — fill the plate with these</span>
+            </div>
+            <span class="item-macro">3g P</span>
+          </li>
+          <li>
+            <div class="item-name">No rice — max 1 small roti if very hungry
+              <span class="item-note">Goal is low carb at night. Keep dinner protein-dominant.</span>
+            </div>
+            <span class="item-macro">—</span>
+          </li>
+        </ul>
+      </div>
+      <div class="meal-total"><span>Meal total</span><span>~55g protein</span></div>
+    </div>
+
+    <div class="meal-card">
+      <div class="meal-head">
+        <div>
+          <div class="meal-time-label">10:00 PM · Optional — Pre-Sleep</div>
+          <div class="meal-name">Curd or Paneer</div>
+        </div>
+        <div class="meal-kcal">~150 kcal</div>
+      </div>
+      <div class="meal-body">
+        <ul class="meal-items">
+          <li>
+            <div class="item-name">1 cup plain curd — thayir
+              <span class="item-note">Low fat. Casein protein — slow digesting, feeds muscles through the night</span>
+            </div>
+            <span class="item-macro">8g P</span>
+          </li>
+          <li>
+            <div class="item-name">OR 100g paneer — raw or lightly spiced
+              <span class="item-note">Paneer bhurji in minimal oil. Better protein option than curd.</span>
+            </div>
+            <span class="item-macro">18g P</span>
+          </li>
+          <li>
+            <div class="item-name">Skip if not hungry
+              <span class="item-note">Don't eat for the sake of eating. Only if genuinely hungry.</span>
+            </div>
+            <span class="item-macro">—</span>
+          </li>
+        </ul>
+      </div>
+      <div class="meal-total"><span>Meal total</span><span>~8–18g protein</span></div>
+    </div>
+
+  </div><!-- /meal-grid -->
+
+  <div class="sec-eyebrow" style="margin-top:8px">South Indian Food Guide</div>
+  <div class="sec-title">What's in. What's out.</div>
+
+  <div class="two-col">
+    <div class="food-card">
+      <div class="food-head yes">✓ &nbsp; Eat freely — your daily staples</div>
+      <ul class="food-body">
+        <li><span class="dot">🐔</span>Chicken breast, pepper chicken varuval, chicken kuzhambu (less oil)</li>
+        <li><span class="dot">🐟</span>Seer fish, rohu, tilapia, sardines, anchovies — grilled or tomato curry</li>
+        <li><span class="dot">🥚</span>Eggs — muttai kuzhambu, scrambled, boiled, any style</li>
+        <li><span class="dot">🫘</span>Dal, sambar, rasam, kootu — all lentil-based dishes freely</li>
+        <li><span class="dot">🥦</span>All vegetables — brinjal, drumstick, beans, cauliflower, spinach, capsicum</li>
+        <li><span class="dot">🧆</span>Paneer — in portions, excellent protein source</li>
+        <li><span class="dot">🥛</span>Curd (thayir), buttermilk (mor) — no added sugar</li>
+        <li><span class="dot">🥜</span>Roasted peanuts, chana — small amounts as snacks only</li>
+        <li><span class="dot">☕</span>Black coffee, green tea, plain black tea — no sugar</li>
+        <li><span class="dot">💧</span>Water — 3–3.5 litres daily. Non-negotiable in Tamil Nadu heat.</li>
+      </ul>
+    </div>
+    <div class="food-card">
+      <div class="food-head no">✗ &nbsp; Reduce or eliminate</div>
+      <ul class="food-body">
+        <li><span class="dot">🍚</span>Large rice portions — 1 small cup near workout only, nothing more</li>
+        <li><span class="dot">🫓</span>Idli, dosa, upma in excess — high glycemic, avoid as main meals</li>
+        <li><span class="dot">🥣</span>Idiyappam, pongal, puttu, appam — high carb, low protein breakfast</li>
+        <li><span class="dot">🍬</span>Payasam, halwa, jalebi, ladoo, murukku — sugar + fat combination</li>
+        <li><span class="dot">🧃</span>Sugary drinks, packaged juices, sweetened chai, Horlicks with sugar</li>
+        <li><span class="dot">🫕</span>Coconut milk-heavy gravies — replace with tomato-based versions</li>
+        <li><span class="dot">🍟</span>Bajji, bonda, vada — deep fried + refined flour</li>
+        <li><span class="dot">🛢️</span>Excess oil in cooking — 1 tsp per meal is enough</li>
+        <li><span class="dot">🍪</span>Biscuits, bread, white flour snacks between meals</li>
+        <li><span class="dot">🥛</span>Sweetened chai multiple times a day — switch to black tea or coffee</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="ibox">
+    <h3>The 3 Rules That Drive the Whole Plan</h3>
+    <ul>
+      <li><strong>Hit 155g protein every day — no exceptions.</strong> This single number determines whether your body builds muscle or just loses weight. Undereating protein during a cut means the weight you lose is partly muscle. That makes the skinny fat look worse, not better. Protein first, every meal.</li>
+      <li><strong>One rice serving per day, timed near your workout.</strong> Not zero carbs — just strategic carbs. Your muscles need glycogen to train hard. Have your rice before or after training. Remove it from every other meal and replace with more protein and vegetables.</li>
+      <li><strong>South Indian food is already excellent — just restructure the ratios.</strong> Sambar, fish curry, kootu, pepper chicken, rasam — all of these are high quality foods. The problem is the proportion of rice to everything else. Flip the ratio: large portion of protein-based dish, small portion of rice or none.</li>
+    </ul>
+  </div>
+
+  <div class="callout purple">
+    <div class="callout-icon">📊</div>
+    <div><strong>Track for 3 weeks:</strong> Use MyFitnessPal or a simple notebook. You will almost certainly find you are eating 300–500 calories more than you think — the oil in cooking, the extra rice, the chai with sugar all add up invisibly. Three weeks of tracking trains your eye permanently. You won't need to track forever — just long enough to understand your portions.</div>
+  </div>
+
+</div><!-- /diet panel -->
+
+</div><!-- /content -->
+
+<script>
+function show(id, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({ top: document.querySelector('.tab-bar').offsetTop - 5, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>
